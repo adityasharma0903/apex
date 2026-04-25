@@ -27,9 +27,12 @@ const benefits: Benefit[] = [
 ];
 
 export function OnlineLearningBenefitsSection() {
+  const leftColumn = benefits.filter((_, index) => index % 2 === 0);
+  const rightColumn = benefits.filter((_, index) => index % 2 === 1);
+
   return (
     <section className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 pb-16 lg:pb-24">
-      <div className="rounded-[2.5rem] bg-[#f3f4f8] px-4 py-12 sm:px-6 lg:px-8 xl:px-10 border border-[#e7e8ed]">
+      <div className="rounded-[2.5rem] px-4 py-12 sm:px-6 lg:px-8 xl:px-10 ">
         <div className="w-full">
           <h2 className="mx-auto max-w-5xl text-center text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight text-[oklch(0.16_0.02_250)]">
             <span>Learn Smarter: Unlock the Benefits of Online</span>
@@ -87,19 +90,58 @@ export function OnlineLearningBenefitsSection() {
               })}
             </div>
 
-            <div className="grid gap-8 md:hidden">
-              {benefits.map((item) => {
-                const Icon = item.icon;
+            <div className="md:hidden grid grid-cols-2 gap-x-3 px-1">
+              <div className="space-y-10">
+                {leftColumn.map((item, index) => {
+                  const Icon = item.icon;
+                  const isLast = index === leftColumn.length - 1;
 
-                return (
-                  <article key={item.title} className="flex items-center gap-4 rounded-2xl bg-white/70 px-4 py-3 border border-[#e4e5ea]">
-                    <div className="h-14 w-14 rounded-full bg-[#2f3876] text-white inline-flex items-center justify-center shrink-0">
-                      <Icon className="h-7 w-7" strokeWidth={1.8} />
-                    </div>
-                    <p className="text-base font-semibold leading-snug text-[oklch(0.2_0.02_250)]">{item.title}</p>
-                  </article>
-                );
-              })}
+                  return (
+                    <article key={item.title} className="flex flex-col items-center text-center">
+                      <div className="h-18 w-18 rounded-full bg-[#2f3876] text-white inline-flex items-center justify-center shadow-[0_16px_34px_-24px_rgba(47,56,118,0.85)]">
+                        <Icon className="h-8 w-8" strokeWidth={1.8} />
+                      </div>
+
+                      {!isLast ? (
+                        <>
+                          <span className="mt-2 h-12 w-px bg-[#c8c9cf]" aria-hidden="true" />
+                          <span className="h-0 w-0 border-x-1.5 border-x-transparent border-t-2 border-t-[#c8c9cf]" aria-hidden="true" />
+                        </>
+                      ) : null}
+
+                      <p className="mt-3 text-[0.96rem] leading-tight font-extrabold uppercase tracking-tight text-[oklch(0.18_0.02_250)]">
+                        {item.title}
+                      </p>
+                    </article>
+                  );
+                })}
+              </div>
+
+              <div className="space-y-10 pt-16">
+                {rightColumn.map((item, index) => {
+                  const Icon = item.icon;
+                  const isLast = index === rightColumn.length - 1;
+
+                  return (
+                    <article key={item.title} className="flex flex-col items-center text-center">
+                      <div className="h-18 w-18 rounded-full bg-[#a8be72] text-white inline-flex items-center justify-center shadow-[0_16px_34px_-24px_rgba(96,121,51,0.8)]">
+                        <Icon className="h-8 w-8" strokeWidth={1.8} />
+                      </div>
+
+                      {!isLast ? (
+                        <>
+                          <span className="mt-2 h-12 w-px bg-[#c8c9cf]" aria-hidden="true" />
+                          <span className="h-0 w-0 border-x-1.5 border-x-transparent border-t-2 border-t-[#c8c9cf]" aria-hidden="true" />
+                        </>
+                      ) : null}
+
+                      <p className="mt-3 text-[0.96rem] leading-tight font-extrabold uppercase tracking-tight text-[oklch(0.18_0.02_250)]">
+                        {item.title}
+                      </p>
+                    </article>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>

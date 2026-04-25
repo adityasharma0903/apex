@@ -44,12 +44,12 @@ const faqs: FaqItem[] = [
 ];
 
 export function FrequentlyAskedQuestionsSection() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const activeFaq = faqs[activeIndex] ?? faqs[0];
+  const [activeIndex, setActiveIndex] = useState<number | null>(0);
+  const activeFaq = faqs[activeIndex ?? 0] ?? faqs[0];
 
   return (
     <section className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 pb-20 lg:pb-28 font-serif">
-      <div className="mx-auto max-w-400 rounded-[2.4rem] bg-[#f8f9fb] border border-[#e7e8ee] px-5 py-12 sm:px-8 lg:px-10 xl:px-12 shadow-[0_18px_40px_-28px_rgba(20,20,35,0.18)]">
+      <div className="mx-auto max-w-400 rounded-[2.4rem] border border-[#e7e8ee] px-5 py-12 sm:px-8 lg:px-10 xl:px-12 shadow-[0_18px_40px_-28px_rgba(20,20,35,0.18)]">
         <h2 className="text-center text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight text-[oklch(0.16_0.02_250)]">
           Frequently Asked Questions
         </h2>
@@ -63,7 +63,7 @@ export function FrequentlyAskedQuestionsSection() {
                 <button
                   key={faq.question}
                   type="button"
-                  onClick={() => setActiveIndex(index)}
+                  onClick={() => setActiveIndex((current) => (current === index ? null : index))}
                   className={`group w-full rounded-[1.35rem] border px-5 py-4 text-left transition-all duration-200 ${
                     isActive
                       ? "border-[#d90f40] bg-white shadow-[0_16px_32px_-24px_rgba(217,15,64,0.42)]"

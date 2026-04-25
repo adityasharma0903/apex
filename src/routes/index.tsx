@@ -9,6 +9,7 @@ import { StudentSuccessVideosSection } from "../components/StudentSuccessVideosS
 import { FrequentlyAskedQuestionsSection } from "../components/FrequentlyAskedQuestionsSection";
 import { WhyApexEdgeSection } from "../components/WhyApexEdgeSection";
 import { ApexEdgeSection } from "../components/ApexEdgeSection";
+import { ApexEdgeFooter } from "../components/ApexEdgeFooter";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -26,6 +27,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 28);
@@ -36,11 +38,11 @@ function Index() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background overflow-x-hidden">
+    <div className="min-h-screen bg-[#fdf2e8] overflow-x-hidden">
       {/* Navbar */}
       <header className="fixed inset-x-0 top-0 z-50">
         <div
-          className={`bg-[#d90f40] text-white transition-all duration-300 overflow-hidden ${
+          className={`hidden sm:block bg-[#d90f40] text-white transition-all duration-300 overflow-hidden ${
             isScrolled ? "max-h-0 opacity-0" : "max-h-20 opacity-100"
           }`}
         >
@@ -87,21 +89,121 @@ function Index() {
               <a href="#" className="hover:text-[#d90f40] transition">Contact Us</a>
             </nav>
 
-            <button className="inline-flex items-center gap-2 rounded-xl bg-[#d90f40] text-white px-4 sm:px-5 py-2.5 text-sm sm:text-base font-semibold shadow-[0_10px_20px_-16px_rgba(217,15,64,0.9)] hover:opacity-90 transition whitespace-nowrap">
+            <button className="hidden sm:inline-flex items-center gap-2 rounded-xl bg-[#d90f40] text-white px-4 sm:px-5 py-2.5 text-sm sm:text-base font-semibold shadow-[0_10px_20px_-16px_rgba(217,15,64,0.9)] hover:opacity-90 transition whitespace-nowrap">
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <circle cx="12" cy="8" r="4" />
                 <path d="M4 20c0-3.5 3.6-6 8-6s8 2.5 8 6" />
               </svg>
-              Signup/Login
+              Enroll Now
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(true)}
+              aria-label="Open menu"
+              className="inline-flex sm:hidden h-11 w-11 items-center justify-center rounded-lg bg-[#d90f40] text-white shadow-[0_10px_20px_-16px_rgba(217,15,64,0.9)]"
+            >
+              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+                <path d="M4 7h16" />
+                <path d="M4 12h16" />
+                <path d="M4 17h16" />
+              </svg>
             </button>
           </div>
         </div>
       </header>
 
-      <div className={`transition-all duration-300 ${isScrolled ? "h-20 sm:h-24" : "h-28 sm:h-32 lg:h-34"}`} />
+      <div
+        className={`fixed inset-0 z-60 sm:hidden transition-opacity duration-300 ${
+          isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        aria-hidden={!isMobileMenuOpen}
+      >
+        <button
+          type="button"
+          aria-label="Close menu"
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="absolute inset-0 bg-black/25"
+        />
+
+        <aside
+          className={`absolute inset-y-0 left-0 w-[84%] max-w-[20rem] bg-white shadow-[0_20px_40px_-22px_rgba(0,0,0,0.35)] px-5 py-5 transition-transform duration-300 ${
+            isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <img src={logo} alt="Apex Edge logo" className="h-9 w-9 object-contain" />
+              <span className="text-[#d90f40] font-extrabold tracking-tight text-2xl">Apex Edge</span>
+            </div>
+
+            <button
+              type="button"
+              aria-label="Close menu"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-black text-white text-xs"
+            >
+              ✕
+            </button>
+          </div>
+
+          <button className="mt-6 w-full rounded-xl bg-[#d90f40] py-3.5 text-white text-lg font-semibold">
+            Book a Free Session
+          </button>
+
+          <nav className="mt-7 space-y-5 text-xl font-semibold text-[oklch(0.2_0.02_250)]">
+            <a href="#" className="block">Online Courses</a>
+            <a href="#" className="block">Results</a>
+            <a href="#" className="block">About Us</a>
+            <a href="#" className="block">Contact Us</a>
+          </nav>
+
+          <div className="mt-8 border-t border-black/10 pt-7">
+            <button className="w-full rounded-xl bg-[#d90f40] py-3.5 text-white text-lg font-semibold">
+              Enroll Now
+            </button>
+          </div>
+        </aside>
+      </div>
+
+      <div className={`transition-all duration-300 ${isScrolled ? "h-20 sm:h-24" : "h-24 sm:h-32 lg:h-34"}`} />
 
       {/* Hero */}
-      <main className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 pt-4 sm:pt-8 lg:pt-12 pb-12 lg:pb-20 relative overflow-hidden">
+      <main className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 pt-2 sm:pt-8 lg:pt-12 pb-12 lg:pb-20 relative overflow-hidden">
+        <div className="sm:hidden rounded-4xl px-4 pt-6 pb-4">
+          <h1 className="text-center text-[2.55rem] leading-[1.14] font-extrabold tracking-tight text-[oklch(0.14_0.02_250)]">
+            Best English Learning
+            <span className="block">Platform in India</span>
+          </h1>
+
+          <div className="mt-4 flex items-center justify-center gap-6 text-[#d90f40]">
+            <p className="text-center text-[2rem] leading-tight font-bold">
+              5K+ Students
+              <span className="block text-[1.9rem]">Trained</span>
+            </p>
+            <span className="h-16 w-px bg-black/35" />
+            <p className="text-center text-[2rem] leading-tight font-bold">
+              Free 1:1
+              <span className="block text-[1.9rem]">Counselling</span>
+            </p>
+          </div>
+
+          <div className="mt-5 flex justify-center">
+            <img
+              src={studentGirl}
+              alt="Smiling student"
+              width={896}
+              height={1024}
+              className="w-78 max-w-full h-auto object-contain"
+            />
+          </div>
+
+          <button className="mt-4 w-full rounded-[0.9rem] bg-[#d90f40] py-3.5 text-white text-[2rem] font-semibold shadow-[0_18px_24px_-20px_rgba(217,15,64,0.8)]">
+            Start Your Journey
+          </button>
+        </div>
+
+        <div className="hidden sm:block">
         {/* Background doodles */}
         <div className="pointer-events-none absolute inset-0 opacity-[0.08] select-none">
           <svg className="absolute top-10 left-4 w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
@@ -126,7 +228,7 @@ function Index() {
 
         <div className="grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] gap-10 xl:gap-16 items-center relative">
           {/* Left content */}
-          <div className="relative z-10 max-w-2xl">
+          <div className="relative z-10 max-w-2xl lg:ml-6 xl:ml-10">
             <h1 className="font-extrabold text-(--brand-text) leading-[1.02] tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
               <div>GO BEYOND THE</div>
               <div className="flex items-center gap-3 sm:gap-4 flex-wrap mt-2">
@@ -138,12 +240,12 @@ function Index() {
               <div className="mt-2">EDUCATION</div>
             </h1>
 
-            <p className="mt-6 sm:mt-8 text-(--brand-muted) text-sm sm:text-base md:text-lg max-w-md leading-relaxed">
+            <p className="mt-6 sm:mt-8 text-(--brand-muted) text-sm sm:text-base md:text-lg max-w-md lg:max-w-lg leading-relaxed">
               Solutions and flexible online leaning, you can study anywhere
               through this platform.
             </p>
 
-            <button className="mt-6 sm:mt-8 bg-(--brand-purple) hover:opacity-90 text-white px-7 sm:px-8 py-3 rounded-md text-sm sm:text-base transition shadow-lg shadow-(color:--brand-purple)/20">
+            <button className="mt-6 sm:mt-8 bg-[#d90f40] hover:bg-[#c50e3a] text-white px-7 sm:px-8 py-3 rounded-md text-sm sm:text-base transition shadow-[0_12px_24px_-18px_rgba(217,15,64,0.9)]">
               Get Started
             </button>
           </div>
@@ -173,39 +275,44 @@ function Index() {
             </svg>
           </div>
         </div>
+        </div>
       </main>
 
       <section className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 pb-12 lg:pb-16">
         <div className="relative overflow-hidden rounded-[2.2rem] bg-[#d70c3f] px-4 py-5 sm:px-6 sm:py-7 lg:px-10 lg:py-8">
           <div className="grid gap-6 lg:grid-cols-[minmax(0,0.28fr)_minmax(0,0.5fr)_minmax(0,0.22fr)] items-center">
             <div className="rounded-[1.6rem] bg-white p-4 sm:p-5 lg:p-6 text-center shadow-[0_20px_40px_-30px_rgba(6,14,34,0.5)]">
-              <p className="text-lg sm:text-xl leading-snug text-[oklch(0.23_0.02_250)]">
+              <p className="text-base sm:text-lg leading-snug text-[oklch(0.23_0.02_250)]">
                 Consult Our Experts for a
               </p>
-              <p className="mt-1 text-[1.85rem] sm:text-[2rem] font-semibold leading-none text-[#d70c3f]">
+              <p className="mt-1 text-[1.45rem] sm:text-[1.7rem] font-semibold leading-none text-[#d70c3f]">
                 Free Session
               </p>
 
-              <p className="mt-5 flex items-center justify-center gap-2 text-[#d70c3f] text-2xl sm:text-3xl font-bold tracking-tight">
+              <p className="mt-4 flex items-center justify-center gap-2 text-[#d70c3f] text-xl sm:text-2xl font-bold tracking-tight">
                 <span aria-hidden="true">📞</span>
                 +91 98788 70737
               </p>
 
-              <button className="mt-6 w-full rounded-xl bg-[#d70c3f] py-3.5 text-white text-xl sm:text-2xl font-semibold hover:opacity-90 transition">
+              <button className="mt-5 w-full rounded-xl bg-[#d70c3f] py-3 text-white text-lg sm:text-xl font-semibold hover:opacity-90 transition">
                 Call Us Now
               </button>
             </div>
 
             <div className="text-white lg:pl-2 xl:pl-3">
-              <h3 className="text-[2rem] sm:text-[2.5rem] lg:text-[3rem] leading-[1.06] font-extrabold tracking-tight">
+              <h3 className="text-[1.6rem] sm:text-[2rem] lg:text-[2.4rem] leading-[1.08] font-extrabold tracking-tight">
                 Unlock IELTS Success with a Free Demo!
               </h3>
-              <p className="mt-4 text-lg sm:text-xl lg:text-[1.65rem] leading-relaxed max-w-4xl text-white/95">
+              <p className="mt-3 text-base sm:text-lg lg:text-[1.25rem] leading-relaxed max-w-4xl text-white/95">
                 Join our free class, and if you enjoy it, enroll in our regular
                 programmes for unmatched improvement in your English skills.
               </p>
 
-              <button className="mt-7 rounded-xl bg-white px-7 sm:px-9 py-3.5 text-[#d70c3f] text-xl sm:text-2xl font-semibold hover:bg-white/90 transition">
+              <p className="mt-3 text-sm sm:text-base font-semibold tracking-wide text-white/95">
+                IELTS / CELPIP / PTE
+              </p>
+
+              <button className="mt-6 rounded-xl bg-white px-6 sm:px-8 py-3 text-[#d70c3f] text-lg sm:text-xl font-semibold hover:bg-white/90 transition">
                 Book Now
               </button>
             </div>
@@ -224,7 +331,7 @@ function Index() {
       </section>
 
       <section className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 pb-16 lg:pb-24">
-        <div className="rounded-[2.25rem] bg-[#f5f7f8] border border-[#dde7e4] p-5 sm:p-8 lg:p-12 xl:p-14">
+        <div className="rounded-[2.25rem]  border p-5 sm:p-8 lg:p-12 xl:p-14">
           <div className="grid lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] gap-10 xl:gap-14 items-center">
             <div className="relative h-112 sm:h-136 lg:h-160">
               <div className="absolute left-[2%] sm:left-[4%] top-0 h-[67%] w-[56%] rounded-t-[7rem] rounded-b-[5.5rem] border-[3px] border-[#2d7f72] bg-[#ebf5f3] overflow-hidden shadow-[0_18px_60px_-35px_rgba(7,57,42,0.45)]">
@@ -264,7 +371,7 @@ function Index() {
             </div>
 
             <div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl leading-tight font-extrabold tracking-tight text-(--brand-text)">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl leading-tight font-extrabold tracking-tight text-(--brand-text)">
                 How to Change Life with <span className="text-[#d72646]">Apex Edge?</span>
               </h2>
 
@@ -324,6 +431,7 @@ function Index() {
       <WhyApexEdgeSection />
       <ApexEdgeSection />
       <FrequentlyAskedQuestionsSection />
+      <ApexEdgeFooter />
     </div>
   );
 }

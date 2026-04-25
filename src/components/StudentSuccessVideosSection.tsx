@@ -15,6 +15,46 @@ const videos: VideoCard[] = [
 ];
 
 export function StudentSuccessVideosSection() {
+  const renderVideoCard = (video: VideoCard) => (
+    <article
+      key={video.title}
+      className="relative overflow-hidden rounded-[1.1rem] bg-white p-4 shadow-[0_12px_30px_-22px_rgba(0,0,0,0.18)] border border-black/5"
+    >
+      <div
+        className="relative aspect-3/4 overflow-hidden rounded-[0.8rem]"
+        style={{ background: `linear-gradient(180deg, ${video.accent}CC 0%, ${video.accent} 100%)` }}
+      >
+        <div className="absolute inset-0 opacity-10" aria-hidden="true">
+          <svg viewBox="0 0 200 300" className="h-full w-full">
+            <circle cx="50" cy="44" r="42" fill="currentColor" />
+            <path d="M18 78c24-26 56-38 82-38s58 12 82 38" fill="none" stroke="currentColor" strokeWidth="10" strokeLinecap="round" />
+          </svg>
+        </div>
+
+        <div className="absolute left-4 top-4 text-white/95 text-lg font-semibold tracking-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.15)]">
+          {video.title}
+          <div className="text-sm font-medium">{video.label}</div>
+        </div>
+
+        <div className="absolute inset-0 flex items-center justify-center">
+          <button
+            type="button"
+            className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-white/30 backdrop-blur-sm ring-1 ring-white/30 shadow-[0_18px_36px_-22px_rgba(0,0,0,0.35)] transition hover:scale-105"
+            aria-label={`Play ${video.title} video`}
+          >
+            <Play className="h-8 w-8 fill-white text-white translate-x-0.5" />
+          </button>
+        </div>
+
+        <div className="absolute bottom-4 left-4 right-4 text-white text-center">
+          <div className="text-xl font-bold tracking-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.18)]">
+            {video.posterText}
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+
   return (
     <section className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 pb-16 lg:pb-24 font-serif">
       <div className="mx-auto max-w-384">
@@ -26,46 +66,18 @@ export function StudentSuccessVideosSection() {
           Join the ranks of over 5,000 satisfied students who have transformed their lives and achieved their English language goals with Apex Edge.
         </p>
 
-        <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 xl:gap-7 items-stretch">
-          {videos.map((video) => (
-            <article
-              key={video.title}
-              className="relative overflow-hidden rounded-[1.1rem] bg-white p-4 shadow-[0_12px_30px_-22px_rgba(0,0,0,0.18)] border border-black/5"
-            >
-              <div
-                className="relative aspect-3/4 overflow-hidden rounded-[0.8rem]"
-                style={{ background: `linear-gradient(180deg, ${video.accent}CC 0%, ${video.accent} 100%)` }}
-              >
-                <div className="absolute inset-0 opacity-10" aria-hidden="true">
-                  <svg viewBox="0 0 200 300" className="h-full w-full">
-                    <circle cx="50" cy="44" r="42" fill="currentColor" />
-                    <path d="M18 78c24-26 56-38 82-38s58 12 82 38" fill="none" stroke="currentColor" strokeWidth="10" strokeLinecap="round" />
-                  </svg>
-                </div>
-
-                <div className="absolute left-4 top-4 text-white/95 text-lg font-semibold tracking-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.15)]">
-                  {video.title}
-                  <div className="text-sm font-medium">{video.label}</div>
-                </div>
-
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <button
-                    type="button"
-                    className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-white/30 backdrop-blur-sm ring-1 ring-white/30 shadow-[0_18px_36px_-22px_rgba(0,0,0,0.35)] transition hover:scale-105"
-                    aria-label={`Play ${video.title} video`}
-                  >
-                    <Play className="h-8 w-8 fill-white text-white translate-x-0.5" />
-                  </button>
-                </div>
-
-                <div className="absolute bottom-4 left-4 right-4 text-white text-center">
-                  <div className="text-xl font-bold tracking-tight drop-shadow-[0_1px_2px_rgba(0,0,0,0.18)]">
-                    {video.posterText}
-                  </div>
-                </div>
+        <div className="mt-12 sm:hidden">
+          <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {videos.map((video) => (
+              <div key={video.title} className="w-[78vw] max-w-[18rem] shrink-0 snap-center">
+                {renderVideoCard(video)}
               </div>
-            </article>
-          ))}
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-14 hidden sm:grid sm:grid-cols-2 xl:grid-cols-4 gap-6 xl:gap-7 items-stretch">
+          {videos.map((video) => renderVideoCard(video))}
         </div>
       </div>
     </section>

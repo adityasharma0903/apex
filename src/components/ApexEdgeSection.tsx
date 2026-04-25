@@ -1,52 +1,37 @@
 import { useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 
 export function ApexEdgeSection() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <>
-      <section className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 py-10 lg:py-14">
-        <div className="rounded-[2rem] bg-[#f9f9f9] border border-[#e5e5e5] p-6 sm:p-8 lg:p-9 xl:p-10 max-w-[1480px] mx-auto">
-          <div className="text-center">
-            <h2 className="text-[1.95rem] sm:text-[2.2rem] lg:text-[2.5rem] font-bold leading-tight">
-              <span className="text-[#d72646]">Apex Edge</span>
-              <span className="text-[#333]"> : Your Pathway to Global Education!</span>
-            </h2>
+    <section className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 py-10 lg:py-14">
+      <div className="rounded-[2rem] bg-[#f9f9f9] border border-[#e5e5e5] p-6 sm:p-8 lg:p-9 xl:p-10 max-w-370 mx-auto">
+        <div className="text-center">
+          <h2 className="text-[1.95rem] sm:text-[2.2rem] lg:text-[2.5rem] font-bold leading-tight">
+            <span className="text-[#d72646]">Apex Edge</span>
+            <span className="text-[#333]"> : Your Pathway to Global Education!</span>
+          </h2>
 
-            <p className="mt-5 text-sm sm:text-base lg:text-[1.12rem] leading-relaxed text-[#555] max-w-[74ch] mx-auto">
-              Studying abroad undoubtedly is a dream for many! Why don't you turn it into a reality? Choose Apex Edge and avail of the most trusted guidance in shaping an enhanced career!
-            </p>
+          <p className="mt-5 text-sm sm:text-base lg:text-[1.12rem] leading-relaxed text-[#555] max-w-[74ch] mx-auto">
+            Studying abroad undoubtedly is a dream for many! Why don't you turn it into a reality? Choose Apex Edge and avail of the most trusted guidance in shaping an enhanced career!
+          </p>
 
-            <p className="mt-4 text-sm sm:text-base lg:text-[1.12rem] leading-relaxed text-[#555] max-w-[74ch] mx-auto">
-              Apex Edge can be your ultimate guide in efficiently cracking the IELTS, and PTE examinations along with refining your Spoken English to secure your seat in international universities of immense repute!
-            </p>
+          <p className="mt-4 text-sm sm:text-base lg:text-[1.12rem] leading-relaxed text-[#555] max-w-[74ch] mx-auto">
+            Apex Edge can be your ultimate guide in efficiently cracking the IELTS, and PTE examinations along with refining your Spoken English to secure your seat in international universities of immense repute!
+          </p>
 
-            <button
-              onClick={() => setIsOpen(true)}
-              className="mt-7 inline-flex items-center justify-center rounded-full border border-[#d72646] text-[#d72646] font-semibold text-base sm:text-lg px-8 py-2.5 hover:bg-[#d72646] hover:text-white transition-all duration-300"
-            >
-              Read More
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => setIsExpanded((current) => !current)}
+            aria-expanded={isExpanded}
+            className="mt-7 inline-flex items-center justify-center rounded-full border border-[#d72646] text-[#d72646] font-semibold text-base sm:text-lg px-8 py-2.5 hover:bg-[#d72646] hover:text-white transition-all duration-300"
+          >
+            {isExpanded ? "Show Less" : "Read More"}
+          </button>
         </div>
-      </section>
 
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="max-h-[82vh] overflow-y-auto max-w-2xl rounded-2xl p-5 sm:p-7">
-          <DialogHeader>
-            <DialogTitle className="text-xl sm:text-2xl text-center leading-tight">
-              <span className="text-[#d72646]">Apex Edge</span>
-              <span className="text-[#333]"> : Your Pathway to Global Education!</span>
-            </DialogTitle>
-          </DialogHeader>
-
-          <div className="space-y-6 px-2 py-4">
+        <div className={`overflow-hidden transition-all duration-500 ease-out ${isExpanded ? "max-h-1040 opacity-100 mt-7" : "max-h-0 opacity-0"}`}>
+          <div className="space-y-6 px-2 py-1">
             <p className="text-base leading-relaxed text-[#555]">
               Studying abroad undoubtedly is a dream for many! Why don't you turn it into a reality? Choose Apex Edge and avail of the most trusted guidance in shaping an enhanced career!
             </p>
@@ -139,8 +124,8 @@ export function ApexEdgeSection() {
               </p>
             </div>
           </div>
-        </DialogContent>
-      </Dialog>
-    </>
+        </div>
+      </div>
+    </section>
   );
 }

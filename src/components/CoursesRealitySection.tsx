@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState, type TouchEvent } from "react";
 import type { LucideIcon } from "lucide-react";
 import { BookOpenCheck, MonitorPlay, Presentation, ScanText } from "lucide-react";
 
@@ -47,6 +48,15 @@ const courses: CourseCard[] = [
     number: "04",
     arrowPosition: "bottom",
   },
+  {
+    title: "Interview English Mastery",
+    description:
+      "Build job-ready communication with practical interview drills, vocabulary coaching, and confidence techniques for real conversations.",
+    icon: BookOpenCheck,
+    accent: "#4d9b6a",
+    number: "05",
+    arrowPosition: "top",
+  },
 ];
 
 function ChevronStack({ color, position }: { color: string; position: "top" | "bottom" }) {
@@ -70,9 +80,103 @@ function ChevronStack({ color, position }: { color: string; position: "top" | "b
 }
 
 export function CoursesRealitySection() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [lastDirection, setLastDirection] = useState<"next" | "prev">("next");
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [animDirection, setAnimDirection] = useState<"next" | "prev">("next");
+  const touchStartX = useRef<number | null>(null);
+  const animationTimeoutRef = useRef<number | undefined>(undefined);
+
+  useEffect(() => {
+    return () => {
+      if (animationTimeoutRef.current !== undefined) {
+        window.clearTimeout(animationTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const animateTo = (direction: "next" | "prev") => {
+    if (isAnimating) {
+      return;
+    }
+
+    setAnimDirection(direction);
+    setIsAnimating(true);
+
+    if (animationTimeoutRef.current !== undefined) {
+      window.clearTimeout(animationTimeoutRef.current);
+    }
+
+    animationTimeoutRef.current = window.setTimeout(() => {
+      setLastDirection(direction);
+      setActiveIndex((current) =>
+        direction === "next"
+          ? (current + 1) % courses.length
+          : (current - 1 + courses.length) % courses.length
+      );
+      setIsAnimating(false);
+    }, 260);
+  };
+
+  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    touchStartX.current = event.touches[0]?.clientX ?? null;
+  };
+
+  const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
+    if (touchStartX.current === null) {
+      return;
+    }
+
+    const endX = event.changedTouches[0]?.clientX ?? touchStartX.current;
+    const deltaX = endX - touchStartX.current;
+    touchStartX.current = null;
+
+    if (Math.abs(deltaX) < 40) {
+      return;
+    }
+
+    if (deltaX < 0) {
+      animateTo("next");
+      return;
+    }
+
+    animateTo("prev");
+  };
+
+  const renderCourseCard = (course: CourseCard, index: number) => {
+    const isAlternate = index % 2 === 1;
+
+    return (
+      <article
+        key={course.title}
+        className="relative overflow-visible text-white shadow-[0_1px_0_rgba(17,24,39,0.05),0_14px_34px_-22px_rgba(0,0,0,0.28)] min-h-96 px-5 sm:px-6 pt-16 pb-6"
+        style={{
+          backgroundColor: course.accent,
+          borderRadius: isAlternate ? "0.55rem 1.7rem 0.55rem 1.7rem" : "1.7rem 0.55rem 1.7rem 0.55rem",
+        }}
+      >
+        <ChevronStack color="#ffffff" position={course.arrowPosition} />
+
+        <div className="absolute right-5 top-4 text-[2.8rem] sm:text-[3.1rem] lg:text-[3.6rem] font-bold leading-none tracking-tight drop-shadow-[0_2px_0_rgba(0,0,0,0.2)]">
+          {course.number}
+        </div>
+
+        <div className="mt-14 text-center">
+          <h3 className="text-[1.1rem] sm:text-[1.2rem] lg:text-[1.35rem] leading-tight font-bold tracking-tight max-w-[12ch] mx-auto">
+            {course.title}
+          </h3>
+
+          <p className="mt-3 text-[0.8rem] sm:text-[0.86rem] lg:text-[0.92rem] leading-6 font-medium max-w-[20ch] mx-auto text-white/92">
+            {course.description}
+          </p>
+        </div>
+      </article>
+    );
+  };
+
   return (
     <section className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 pb-16 lg:pb-24 font-serif">
-      <div className="rounded-[2.4rem] bg-[#fafafa] border border-[#e3e3e8] px-4 py-12 sm:px-8 lg:px-10">
+      <div className="rounded-[2.4rem]  px-4 py-12 sm:px-8 lg:px-10">
         <div className="mx-auto max-w-384">
           <h2 className="text-center text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight text-[oklch(0.16_0.02_250)] max-w-5xl mx-auto">
             <span>Turn Your Dreams into Reality with </span>
@@ -84,39 +188,85 @@ export function CoursesRealitySection() {
             Achieve your language goals with Apex Edge, where we offer comprehensive solutions customised to your needs.
           </p>
 
-          <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 xl:gap-8 items-stretch">
-            {courses.map((course, index) => {
-              const Icon = course.icon;
-              const isTop = course.arrowPosition === "top";
-              const isAlternate = index % 2 === 1;
+          <div className="mt-10 sm:hidden">
+            <div
+              className="relative min-h-130"
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+            >
+              {(() => {
+                const currentCourse = courses[activeIndex];
 
-              return (
-                <article
+                if (!currentCourse) {
+                  return null;
+                }
+
+                const exitX = animDirection === "next" ? -120 : 120;
+                const exitRotate = animDirection === "next" ? -10 : 10;
+
+                return (
+                  <div
+                    key={`current-${currentCourse.title}-${activeIndex}`}
+                    className="absolute inset-x-1 top-0 z-40 transition-all duration-250 ease-out"
+                    style={{
+                      transform: isAnimating
+                        ? `translate(${exitX}px, -4px) rotate(${exitRotate}deg) scale(0.92)`
+                        : "translate(0px, 0px) rotate(0deg) scale(1)",
+                      opacity: isAnimating ? 0 : 1,
+                    }}
+                  >
+                    {renderCourseCard(currentCourse, activeIndex)}
+                  </div>
+                );
+              })()}
+
+              {[1, 2, 3].map((offset) => {
+                const index = (activeIndex + offset) % courses.length;
+                const course = courses[index];
+
+                if (!course) {
+                  return null;
+                }
+
+                const x = (lastDirection === "next" ? 11 : -11) * offset;
+                const y = offset * 15;
+                const scale = 1 - offset * 0.04;
+                const opacity = 1 - offset * 0.2;
+                const rotate = (offset % 2 === 0 ? 1 : -1) * (lastDirection === "next" ? 1 : -1) * 2;
+
+                return (
+                  <div
+                    key={`${course.title}-${offset}`}
+                    className="absolute inset-x-1 top-0 transition-all duration-300 ease-out"
+                    style={{
+                      transform: `translate(${x}px, ${y}px) rotate(${rotate}deg) scale(${scale})`,
+                      zIndex: 30 - offset,
+                      opacity,
+                    }}
+                    aria-hidden="true"
+                  >
+                    {renderCourseCard(course, index)}
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="mt-8 flex items-center justify-center gap-2" aria-hidden="true">
+              {courses.map((course, index) => (
+                <span
                   key={course.title}
-                  className="relative overflow-visible text-white shadow-[0_1px_0_rgba(17,24,39,0.05),0_14px_34px_-22px_rgba(0,0,0,0.28)] min-h-96 px-5 sm:px-6 pt-16 pb-6"
-                  style={{
-                    backgroundColor: course.accent,
-                    borderRadius: isAlternate ? "0.55rem 1.7rem 0.55rem 1.7rem" : "1.7rem 0.55rem 1.7rem 0.55rem",
-                  }}
-                >
-                  <ChevronStack color="#ffffff" position={course.arrowPosition} />
+                  className={`h-2.5 rounded-full transition-all ${index === activeIndex ? "w-6 bg-[#d90f40]" : "w-2.5 bg-black/20"}`}
+                />
+              ))}
+            </div>
 
-                  <div className="absolute right-5 top-4 text-[2.8rem] sm:text-[3.1rem] lg:text-[3.6rem] font-bold leading-none tracking-tight drop-shadow-[0_2px_0_rgba(0,0,0,0.2)]">
-                    {course.number}
-                  </div>
+            <p className="mt-3 text-center text-xs font-semibold tracking-wide text-black/60">
+              Swipe left or right to explore courses
+            </p>
+          </div>
 
-                  <div className="mt-14 text-center">
-                    <h3 className="text-[1.1rem] sm:text-[1.2rem] lg:text-[1.35rem] leading-tight font-bold tracking-tight max-w-[12ch] mx-auto">
-                      {course.title}
-                    </h3>
-
-                    <p className="mt-3 text-[0.8rem] sm:text-[0.86rem] lg:text-[0.92rem] leading-6 font-medium max-w-[20ch] mx-auto text-white/92">
-                    {course.description}
-                    </p>
-                  </div>
-                </article>
-              );
-            })}
+          <div className="mt-14 hidden sm:grid sm:grid-cols-2 xl:grid-cols-5 gap-6 xl:gap-5 items-stretch">
+            {courses.map((course, index) => renderCourseCard(course, index))}
           </div>
         </div>
       </div>
