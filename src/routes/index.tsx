@@ -52,9 +52,16 @@ function Index() {
               <span>Claim FREE Demo Class & Scholarships</span>
             </div>
             <div className="flex items-center gap-2.5 sm:gap-4 ml-auto whitespace-nowrap">
-              <a href="#" className="hover:opacity-85 transition">CELPIP</a>
+              <a 
+                href="mailto:Email@gmail.com" 
+                className="hover:opacity-85 transition"
+              >
+                Email@gmail.com
+              </a>
               <span className="hidden sm:inline-block h-5 w-px bg-white/45" />
-              <span>+91 79869 01874</span>
+              <a href="tel:+917986901874" className="hover:opacity-85 transition">
+                +91 79869 01874
+              </a>
             </div>
           </div>
         </div>
@@ -301,7 +308,7 @@ function Index() {
 
             <div className="text-white lg:pl-2 xl:pl-3">
               <h3 className="text-[1.6rem] sm:text-[2rem] lg:text-[2.4rem] leading-[1.08] font-extrabold tracking-tight">
-                Unlock IELTS Success with a Free Demo!
+                Unlock IELTS / CELPIP / PTE Success with a Free Demo!
               </h3>
               <p className="mt-3 text-base sm:text-lg lg:text-[1.25rem] leading-relaxed max-w-4xl text-white/95">
                 Join our free class, and if you enjoy it, enroll in our regular
