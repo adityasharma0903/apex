@@ -177,23 +177,12 @@ function Index() {
 
       {/* Hero */}
       <main className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 pt-2 sm:pt-8 lg:pt-12 pb-12 lg:pb-20 relative overflow-hidden">
-        <div className="sm:hidden rounded-4xl px-4 pt-6 pb-4">
-          <h1 className="text-center text-[2.55rem] leading-[1.14] font-extrabold tracking-tight text-[oklch(0.14_0.02_250)]">
+        <div className="sm:hidden rounded-4xl px-4 pt-4 pb-4">
+          <h1 className="text-center text-[2.05rem] leading-[1.12] font-extrabold tracking-tight text-[oklch(0.14_0.02_250)]">
             Best English Learning
             <span className="block">Platform in India</span>
           </h1>
 
-          <div className="mt-4 flex items-center justify-center gap-6 text-[#d90f40]">
-            <p className="text-center text-[2rem] leading-tight font-bold">
-              5K+ Students
-              <span className="block text-[1.9rem]">Trained</span>
-            </p>
-            <span className="h-16 w-px bg-black/35" />
-            <p className="text-center text-[2rem] leading-tight font-bold">
-              Free 1:1
-              <span className="block text-[1.9rem]">Counselling</span>
-            </p>
-          </div>
 
           <div className="mt-5 flex justify-center">
             <img
@@ -201,11 +190,11 @@ function Index() {
               alt="Smiling student"
               width={896}
               height={1024}
-              className="w-78 max-w-full h-auto object-contain"
+              className="w-full max-w-[18rem] h-auto object-contain"
             />
           </div>
 
-          <button className="mt-4 w-full rounded-[0.9rem] bg-[#d90f40] py-3.5 text-white text-[2rem] font-semibold shadow-[0_18px_24px_-20px_rgba(217,15,64,0.8)]">
+          <button className="mt-4 w-full rounded-[0.9rem] bg-[#d90f40] py-3.5 text-white text-[1.75rem] font-semibold shadow-[0_18px_24px_-20px_rgba(217,15,64,0.8)]">
             Start Your Journey
           </button>
         </div>
