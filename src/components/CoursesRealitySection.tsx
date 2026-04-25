@@ -179,9 +179,11 @@ export function CoursesRealitySection() {
       <div className="rounded-[2.4rem]  px-4 py-12 sm:px-8 lg:px-10">
         <div className="mx-auto max-w-384">
           <h2 className="text-center text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight text-[oklch(0.16_0.02_250)] max-w-5xl mx-auto">
-            <span>Turn Your Dreams into Reality with </span>
-            <span className="text-[#d90f40]">Apex Edge</span>
-            <span className="block">Courses</span>
+           <span>
+            Turn Your Dreams into Reality with <br />
+            <span className="text-[#d90f40]">Apex Edge Courses</span>
+          </span>
+          
           </h2>
 
           <p className="mt-5 text-center text-sm sm:text-base lg:text-lg leading-relaxed text-[oklch(0.26_0.02_250)] max-w-5xl mx-auto font-medium">

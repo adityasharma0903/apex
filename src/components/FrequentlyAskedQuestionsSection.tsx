@@ -49,7 +49,7 @@ export function FrequentlyAskedQuestionsSection() {
 
   return (
     <section className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 pb-20 lg:pb-28 font-serif">
-      <div className="mx-auto max-w-400 rounded-[2.4rem] border border-[#e7e8ee] px-5 py-12 sm:px-8 lg:px-10 xl:px-12 shadow-[0_18px_40px_-28px_rgba(20,20,35,0.18)]">
+      <div className="mx-auto max-w-400 rounded-[2.4rem] px-5 py-12 sm:px-8 lg:px-10 xl:px-12">
         <h2 className="text-center text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight text-[oklch(0.16_0.02_250)]">
           Frequently Asked Questions
         </h2>
@@ -64,16 +64,16 @@ export function FrequentlyAskedQuestionsSection() {
                   key={faq.question}
                   type="button"
                   onClick={() => setActiveIndex((current) => (current === index ? null : index))}
-                  className={`group w-full rounded-[1.35rem] border px-5 py-4 text-left transition-all duration-200 ${
+                  className={`group w-full rounded-[1.35rem] border px-5 py-4 text-left transition-all duration-200 cursor-pointer ${
                     isActive
-                      ? "border-[#d90f40] bg-white shadow-[0_16px_32px_-24px_rgba(217,15,64,0.42)]"
+                      ? "border-[#d90f40] bg-white"
                       : "border-[#e6e7ec] bg-white/80 hover:border-[#d90f40]/35 hover:bg-white"
                   }`}
                   aria-pressed={isActive}
                 >
                   <div className="flex items-start gap-4">
                     <span
-                      className={`mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold transition-colors ${
+                      className={`mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold transition-colors cursor-pointer ${
                         isActive ? "bg-[#d90f40] text-white" : "bg-[#eef0f4] text-[oklch(0.22_0.02_250)]"
                       }`}
                     >
@@ -84,7 +84,7 @@ export function FrequentlyAskedQuestionsSection() {
                         <span className={`text-base sm:text-[1.05rem] font-semibold leading-snug ${isActive ? "text-[oklch(0.16_0.02_250)]" : "text-[oklch(0.2_0.02_250)]"}`}>
                           {faq.question}
                         </span>
-                        <span className={`text-2xl leading-none transition-transform duration-200 ${isActive ? "text-[#d90f40]" : "text-[oklch(0.25_0.02_250)]"}`}>
+                        <span className={`text-2xl leading-none transition-transform duration-200  cursor-pointer ${isActive ? "text-[#d90f40]" : "text-[oklch(0.25_0.02_250)]"}`}>
                           {isActive ? "−" : "+"}
                         </span>
                       </div>
@@ -101,7 +101,7 @@ export function FrequentlyAskedQuestionsSection() {
             })}
           </div>
 
-          <aside className="rounded-[2rem] bg-white border border-[#e5e7ee] p-6 sm:p-8 lg:p-10 shadow-[0_18px_40px_-28px_rgba(18,18,35,0.2)] lg:sticky lg:top-6">
+          <aside className="rounded-[2rem] bg-white p-6 sm:p-8 lg:p-10 lg:sticky lg:top-6">
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#d90f40]">Answer</p>
             <h3 className="mt-3 text-2xl sm:text-3xl font-extrabold tracking-tight text-[oklch(0.16_0.02_250)] leading-tight">
               {activeFaq.question}

@@ -331,7 +331,7 @@ function Index() {
       </section>
 
       <section className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 pb-16 lg:pb-24">
-        <div className="rounded-[2.25rem]  border p-5 sm:p-8 lg:p-12 xl:p-14">
+        <div className="rounded-[2.25rem]  p-5 sm:p-8 lg:p-12 xl:p-14">
           <div className="grid lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] gap-10 xl:gap-14 items-center">
             <div className="relative h-112 sm:h-136 lg:h-160">
               <div className="absolute left-[2%] sm:left-[4%] top-0 h-[67%] w-[56%] rounded-t-[7rem] rounded-b-[5.5rem] border-[3px] border-[#2d7f72] bg-[#ebf5f3] overflow-hidden shadow-[0_18px_60px_-35px_rgba(7,57,42,0.45)]">

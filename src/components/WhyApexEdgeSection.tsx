@@ -13,7 +13,7 @@ const cards: WhyCard[] = [
     description:
       "Apex Edge offers IELTS, PTE, Spoken English, and CELPIP learning paths built to improve your English skills effectively.",
     icon: "📚",
-    color: "#d8ecff",
+    color: "#e8ebef",
   },
   {
     title: "Expert Instructors and Resources",
@@ -133,81 +133,26 @@ export function WhyApexEdgeSection() {
           Short, focused learning support built for English language goals.
         </p>
 
-        <div className="mt-10 sm:hidden">
-          <div
-            className="relative min-h-112"
-            onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
-          >
-            {(() => {
-              const currentCard = cards[activeIndex];
+        <div className="mt-10 grid gap-5 sm:hidden">
+          {cards.map((card, index) => (
+            <div
+              key={card.title}
+              className="relative z-10 w-full min-h-72 rounded-[2rem] p-6 sm:p-7 lg:p-8 shadow-[0_14px_35px_-24px_rgba(0,0,0,0.18)]"
+              style={{ backgroundColor: card.color }}
+            >
+              <div className={`mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-white/80 text-4xl shadow-[0_10px_25px_-18px_rgba(0,0,0,0.2)] ${index % 2 === 1 ? "ml-auto" : ""}`}>
+                {card.icon}
+              </div>
 
-              if (!currentCard) {
-                return null;
-              }
+              <h3 className={`text-2xl sm:text-[1.65rem] lg:text-[1.75rem] leading-tight font-black tracking-tight text-[oklch(0.16_0.02_250)] max-w-[16ch] ${index % 2 === 1 ? "ml-auto text-right" : ""}`}>
+                {card.title}
+              </h3>
 
-              const exitX = animDirection === "next" ? -115 : 115;
-              const exitRotate = animDirection === "next" ? -11 : 11;
-
-              return (
-                <div
-                  key={`current-${currentCard.title}-${activeIndex}`}
-                  className="absolute inset-x-0 top-0 z-40 transition-all duration-250 ease-out"
-                  style={{
-                    transform: isAnimating
-                      ? `translate(${exitX}px, -6px) rotate(${exitRotate}deg) scale(0.92)`
-                      : "translate(0px, 0px) rotate(0deg) scale(1)",
-                    opacity: isAnimating ? 0 : 1,
-                  }}
-                >
-                  {renderCard(currentCard, activeIndex)}
-                </div>
-              );
-            })()}
-
-            {[1, 2, 3].map((offset) => {
-              const index = (activeIndex + offset) % cards.length;
-              const card = cards[index];
-
-              if (!card) {
-                return null;
-              }
-
-              const x = (lastDirection === "next" ? 14 : -14) * offset;
-              const y = offset * 14;
-              const scale = 1 - offset * 0.04;
-              const opacity = 1 - offset * 0.18;
-              const rotate = (offset % 2 === 0 ? 1 : -1) * (lastDirection === "next" ? 1 : -1) * 3;
-
-              return (
-                <div
-                  key={`${card.title}-${offset}`}
-                  className="absolute inset-x-0 top-0 transition-all duration-300 ease-out"
-                  style={{
-                    transform: `translate(${x}px, ${y}px) rotate(${rotate}deg) scale(${scale})`,
-                    zIndex: 20 - offset,
-                    opacity,
-                  }}
-                  aria-hidden="true"
-                >
-                  {renderCard(card, index)}
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="mt-7 flex items-center justify-center gap-2" aria-hidden="true">
-            {cards.map((card, index) => (
-              <span
-                key={card.title}
-                className={`h-2.5 rounded-full transition-all ${index === activeIndex ? "w-6 bg-[#d90f40]" : "w-2.5 bg-black/20"}`}
-              />
-            ))}
-          </div>
-
-          <p className="mt-3 text-center text-xs font-semibold tracking-wide text-black/60">
-            Swipe left or right to browse cards
-          </p>
+              <p className={`mt-4 text-sm sm:text-base leading-7 text-[oklch(0.24_0.02_250)] max-w-[30ch] font-medium ${index % 2 === 1 ? "ml-auto text-right" : ""}`}>
+                {card.description}
+              </p>
+            </div>
+          ))}
         </div>
 
         <div className="relative mt-14 hidden sm:grid gap-5 lg:grid-cols-2">

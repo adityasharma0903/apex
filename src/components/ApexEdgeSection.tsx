@@ -20,14 +20,16 @@ export function ApexEdgeSection() {
             Apex Edge can be your ultimate guide in efficiently cracking the IELTS, and PTE examinations along with refining your Spoken English to secure your seat in international universities of immense repute!
           </p>
 
-          <button
-            type="button"
-            onClick={() => setIsExpanded((current) => !current)}
-            aria-expanded={isExpanded}
-            className="mt-7 inline-flex items-center justify-center rounded-full border border-[#d72646] text-[#d72646] font-semibold text-base sm:text-lg px-8 py-2.5 hover:bg-[#d72646] hover:text-white transition-all duration-300"
-          >
-            {isExpanded ? "Show Less" : "Read More"}
-          </button>
+          {!isExpanded && (
+            <button
+              type="button"
+              onClick={() => setIsExpanded(true)}
+              aria-expanded={isExpanded}
+              className="mt-7 inline-flex items-center justify-center rounded-full border border-[#d72646] text-[#d72646] font-semibold text-base sm:text-lg px-8 py-2.5 hover:bg-[#d72646] hover:text-white transition-all duration-300"
+            >
+              Read More
+            </button>
+          )}
         </div>
 
         <div className={`overflow-hidden transition-all duration-500 ease-out ${isExpanded ? "max-h-1040 opacity-100 mt-7" : "max-h-0 opacity-0"}`}>
@@ -122,6 +124,17 @@ export function ApexEdgeSection() {
               <p className="text-base leading-relaxed text-[#555]">
                 Bring major improvement to your overall communication skills with the most reliable online English speaking classes at Apex Edge. We are here to help you refine your English speaking skills with the most engaging and strategic lesson plans! Choose Apex Edge and book your seats now!
               </p>
+            </div>
+
+            <div className="mt-7 flex justify-center">
+              <button
+                type="button"
+                onClick={() => setIsExpanded(false)}
+                aria-expanded={isExpanded}
+                className="inline-flex items-center justify-center rounded-full border border-[#d72646] text-[#d72646] font-semibold text-base sm:text-lg px-8 py-2.5 hover:bg-[#d72646] hover:text-white transition-all duration-300"
+              >
+                Show Less
+              </button>
             </div>
           </div>
         </div>

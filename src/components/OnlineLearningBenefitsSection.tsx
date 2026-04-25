@@ -34,10 +34,10 @@ export function OnlineLearningBenefitsSection() {
     <section className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 pb-16 lg:pb-24">
       <div className="rounded-[2.5rem] px-4 py-12 sm:px-6 lg:px-8 xl:px-10 ">
         <div className="w-full">
-          <h2 className="mx-auto max-w-5xl text-center text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight text-[oklch(0.16_0.02_250)]">
+          <h2 className="mx-auto max-w-5xl text-center text-3xl sm:text-5xl lg:text-4xl font-extrabold tracking-tight leading-tight text-[oklch(0.16_0.02_250)]">
             <span>Learn Smarter: Unlock the Benefits of Online</span>
-            <span className="block mt-2 text-[#d90f40]">English Learning</span>
-            <span> Classes!</span>
+            <span className="block mt-2 text-[#d90f40]">English Learning Classes!</span>
+           
           </h2>
 
           <div className="mt-12 lg:mt-14">
