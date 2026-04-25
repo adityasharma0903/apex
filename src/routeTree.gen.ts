@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SpokenEnglishRouteImport } from './routes/spoken-english'
 import { Route as PteRouteImport } from './routes/pte'
 import { Route as IeltsRouteImport } from './routes/ielts'
+import { Route as ContactUsRouteImport } from './routes/contact-us'
 import { Route as BookSessionRouteImport } from './routes/book-session'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -30,6 +31,11 @@ const IeltsRoute = IeltsRouteImport.update({
   path: '/ielts',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactUsRoute = ContactUsRouteImport.update({
+  id: '/contact-us',
+  path: '/contact-us',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BookSessionRoute = BookSessionRouteImport.update({
   id: '/book-session',
   path: '/book-session',
@@ -44,6 +50,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/book-session': typeof BookSessionRoute
+  '/contact-us': typeof ContactUsRoute
   '/ielts': typeof IeltsRoute
   '/pte': typeof PteRoute
   '/spoken-english': typeof SpokenEnglishRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/book-session': typeof BookSessionRoute
+  '/contact-us': typeof ContactUsRoute
   '/ielts': typeof IeltsRoute
   '/pte': typeof PteRoute
   '/spoken-english': typeof SpokenEnglishRoute
@@ -59,21 +67,42 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/book-session': typeof BookSessionRoute
+  '/contact-us': typeof ContactUsRoute
   '/ielts': typeof IeltsRoute
   '/pte': typeof PteRoute
   '/spoken-english': typeof SpokenEnglishRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/book-session' | '/ielts' | '/pte' | '/spoken-english'
+  fullPaths:
+    | '/'
+    | '/book-session'
+    | '/contact-us'
+    | '/ielts'
+    | '/pte'
+    | '/spoken-english'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/book-session' | '/ielts' | '/pte' | '/spoken-english'
-  id: '__root__' | '/' | '/book-session' | '/ielts' | '/pte' | '/spoken-english'
+  to:
+    | '/'
+    | '/book-session'
+    | '/contact-us'
+    | '/ielts'
+    | '/pte'
+    | '/spoken-english'
+  id:
+    | '__root__'
+    | '/'
+    | '/book-session'
+    | '/contact-us'
+    | '/ielts'
+    | '/pte'
+    | '/spoken-english'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BookSessionRoute: typeof BookSessionRoute
+  ContactUsRoute: typeof ContactUsRoute
   IeltsRoute: typeof IeltsRoute
   PteRoute: typeof PteRoute
   SpokenEnglishRoute: typeof SpokenEnglishRoute
@@ -102,6 +131,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IeltsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact-us': {
+      id: '/contact-us'
+      path: '/contact-us'
+      fullPath: '/contact-us'
+      preLoaderRoute: typeof ContactUsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/book-session': {
       id: '/book-session'
       path: '/book-session'
@@ -122,6 +158,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BookSessionRoute: BookSessionRoute,
+  ContactUsRoute: ContactUsRoute,
   IeltsRoute: IeltsRoute,
   PteRoute: PteRoute,
   SpokenEnglishRoute: SpokenEnglishRoute,
