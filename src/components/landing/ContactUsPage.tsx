@@ -63,9 +63,8 @@ export function ContactUsPage() {
     <main className="min-h-screen overflow-x-hidden bg-[#f3dde2] text-xs sm:text-sm">
       <header className="fixed inset-x-0 top-0 z-50">
         <div
-          className={`hidden sm:block bg-[#d90f40] text-white transition-all duration-300 overflow-hidden ${
-            isScrolled ? "max-h-0 opacity-0" : "max-h-20 opacity-100"
-          }`}
+          className={`hidden sm:block bg-[#d90f40] text-white transition-all duration-300 overflow-hidden ${isScrolled ? "max-h-0 opacity-0" : "max-h-20 opacity-100"
+            }`}
         >
           <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 h-12 flex items-center justify-between text-xs sm:text-sm font-semibold">
             <div className="hidden md:flex items-center gap-2.5 whitespace-nowrap">
@@ -86,11 +85,10 @@ export function ContactUsPage() {
 
         <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 pt-0 sm:pt-1">
           <div
-            className={`mx-auto flex items-center justify-between transition-all duration-300 ${
-              isScrolled
-                ? "mt-1.5 rounded-xl bg-white border border-[#eed7df] shadow-[0_10px_30px_-24px_rgba(20,20,40,0.45)]"
-                : "-mt-1 rounded-b-[1.65rem] bg-white border border-[#f0f0f0] shadow-[0_18px_28px_-22px_rgba(0,0,0,0.35)]"
-            } px-4 sm:px-6 lg:px-8 py-3.5`}
+            className={`mx-auto flex items-center justify-between transition-all duration-300 ${isScrolled
+              ? "mt-1.5 rounded-xl bg-white border border-[#eed7df] shadow-[0_10px_30px_-24px_rgba(20,20,40,0.45)]"
+              : "-mt-1 rounded-b-[1.65rem] bg-white border border-[#f0f0f0] shadow-[0_18px_28px_-22px_rgba(0,0,0,0.35)]"
+              } px-4 sm:px-6 lg:px-8 py-3.5`}
           >
             <Link to="/" className="flex items-center gap-2.5 sm:gap-3 shrink-0">
               <img src={logo} alt="Apex Edge logo" className="h-10 w-10 sm:h-11 sm:w-11 object-contain" />
@@ -165,9 +163,8 @@ export function ContactUsPage() {
       </header>
 
       <div
-        className={`fixed inset-0 z-60 sm:hidden transition-opacity duration-300 ${
-          isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
+        className={`fixed inset-0 z-60 sm:hidden transition-opacity duration-300 ${isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          }`}
         aria-hidden={!isMobileMenuOpen}
       >
         <button
@@ -178,9 +175,8 @@ export function ContactUsPage() {
         />
 
         <aside
-          className={`absolute inset-y-0 left-0 w-[84%] max-w-[20rem] bg-white shadow-[0_20px_40px_-22px_rgba(0,0,0,0.35)] px-5 py-5 transition-transform duration-300 ${
-            isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
+          className={`absolute inset-y-0 left-0 w-[84%] max-w-[20rem] bg-white shadow-[0_20px_40px_-22px_rgba(0,0,0,0.35)] px-5 py-5 transition-transform duration-300 ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+            }`}
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">

@@ -13,8 +13,12 @@ import { Route as SpokenEnglishRouteImport } from './routes/spoken-english'
 import { Route as PteRouteImport } from './routes/pte'
 import { Route as IeltsRouteImport } from './routes/ielts'
 import { Route as ContactUsRouteImport } from './routes/contact-us'
+import { Route as CelpipRouteImport } from './routes/celpip'
+import { Route as BusinessCommunicationsRouteImport } from './routes/business-communications'
 import { Route as BookSessionRouteImport } from './routes/book-session'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TeachersTeacherIdRouteImport } from './routes/teachers.$teacherId'
 
 const SpokenEnglishRoute = SpokenEnglishRouteImport.update({
   id: '/spoken-english',
@@ -36,9 +40,24 @@ const ContactUsRoute = ContactUsRouteImport.update({
   path: '/contact-us',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CelpipRoute = CelpipRouteImport.update({
+  id: '/celpip',
+  path: '/celpip',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BusinessCommunicationsRoute = BusinessCommunicationsRouteImport.update({
+  id: '/business-communications',
+  path: '/business-communications',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BookSessionRoute = BookSessionRouteImport.update({
   id: '/book-session',
   path: '/book-session',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -46,66 +65,99 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TeachersTeacherIdRoute = TeachersTeacherIdRouteImport.update({
+  id: '/teachers/$teacherId',
+  path: '/teachers/$teacherId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/book-session': typeof BookSessionRoute
+  '/business-communications': typeof BusinessCommunicationsRoute
+  '/celpip': typeof CelpipRoute
   '/contact-us': typeof ContactUsRoute
   '/ielts': typeof IeltsRoute
   '/pte': typeof PteRoute
   '/spoken-english': typeof SpokenEnglishRoute
+  '/teachers/$teacherId': typeof TeachersTeacherIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/book-session': typeof BookSessionRoute
+  '/business-communications': typeof BusinessCommunicationsRoute
+  '/celpip': typeof CelpipRoute
   '/contact-us': typeof ContactUsRoute
   '/ielts': typeof IeltsRoute
   '/pte': typeof PteRoute
   '/spoken-english': typeof SpokenEnglishRoute
+  '/teachers/$teacherId': typeof TeachersTeacherIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/book-session': typeof BookSessionRoute
+  '/business-communications': typeof BusinessCommunicationsRoute
+  '/celpip': typeof CelpipRoute
   '/contact-us': typeof ContactUsRoute
   '/ielts': typeof IeltsRoute
   '/pte': typeof PteRoute
   '/spoken-english': typeof SpokenEnglishRoute
+  '/teachers/$teacherId': typeof TeachersTeacherIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/book-session'
+    | '/business-communications'
+    | '/celpip'
     | '/contact-us'
     | '/ielts'
     | '/pte'
     | '/spoken-english'
+    | '/teachers/$teacherId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/book-session'
+    | '/business-communications'
+    | '/celpip'
     | '/contact-us'
     | '/ielts'
     | '/pte'
     | '/spoken-english'
+    | '/teachers/$teacherId'
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/book-session'
+    | '/business-communications'
+    | '/celpip'
     | '/contact-us'
     | '/ielts'
     | '/pte'
     | '/spoken-english'
+    | '/teachers/$teacherId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   BookSessionRoute: typeof BookSessionRoute
+  BusinessCommunicationsRoute: typeof BusinessCommunicationsRoute
+  CelpipRoute: typeof CelpipRoute
   ContactUsRoute: typeof ContactUsRoute
   IeltsRoute: typeof IeltsRoute
   PteRoute: typeof PteRoute
   SpokenEnglishRoute: typeof SpokenEnglishRoute
+  TeachersTeacherIdRoute: typeof TeachersTeacherIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -138,11 +190,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactUsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/celpip': {
+      id: '/celpip'
+      path: '/celpip'
+      fullPath: '/celpip'
+      preLoaderRoute: typeof CelpipRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/business-communications': {
+      id: '/business-communications'
+      path: '/business-communications'
+      fullPath: '/business-communications'
+      preLoaderRoute: typeof BusinessCommunicationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/book-session': {
       id: '/book-session'
       path: '/book-session'
       fullPath: '/book-session'
       preLoaderRoute: typeof BookSessionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -152,16 +225,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/teachers/$teacherId': {
+      id: '/teachers/$teacherId'
+      path: '/teachers/$teacherId'
+      fullPath: '/teachers/$teacherId'
+      preLoaderRoute: typeof TeachersTeacherIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   BookSessionRoute: BookSessionRoute,
+  BusinessCommunicationsRoute: BusinessCommunicationsRoute,
+  CelpipRoute: CelpipRoute,
   ContactUsRoute: ContactUsRoute,
   IeltsRoute: IeltsRoute,
   PteRoute: PteRoute,
   SpokenEnglishRoute: SpokenEnglishRoute,
+  TeachersTeacherIdRoute: TeachersTeacherIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

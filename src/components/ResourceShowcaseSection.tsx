@@ -20,12 +20,12 @@ const resources = [
   {
     title: "CELPIP",
     icon: Languages,
-    to: "/book-session",
+    to: "/celpip",
   },
   {
     title: "Business Communication",
     icon: BriefcaseBusiness,
-    to: "/buisness-communication",
+    to: "/business-communications",
   },
   
 ] as const;

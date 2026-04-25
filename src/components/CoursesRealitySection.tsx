@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type TouchEvent } from "react";
+import { Link } from "@tanstack/react-router";
 import type { LucideIcon } from "lucide-react";
-import { BookOpenCheck, MonitorPlay, Presentation, ScanText } from "lucide-react";
+import { BookOpenCheck, MonitorPlay, Presentation, ScanText, ArrowRight } from "lucide-react";
 
 type CourseCard = {
   title: string;
@@ -9,6 +10,7 @@ type CourseCard = {
   accent: string;
   number: string;
   arrowPosition: "top" | "bottom";
+  to: string;
 };
 
 const courses: CourseCard[] = [
@@ -20,6 +22,7 @@ const courses: CourseCard[] = [
     accent: "#2cb7c7",
     number: "01",
     arrowPosition: "top",
+    to: "/ielts",
   },
   {
     title: "PTE Preparation Online",
@@ -29,6 +32,7 @@ const courses: CourseCard[] = [
     accent: "#f79c45",
     number: "02",
     arrowPosition: "bottom",
+    to: "/pte",
   },
   {
     title: "Spoken English Course",
@@ -38,6 +42,7 @@ const courses: CourseCard[] = [
     accent: "#98125d",
     number: "03",
     arrowPosition: "top",
+    to: "/spoken-english",
   },
   {
     title: "CELPIP Preparation",
@@ -47,6 +52,7 @@ const courses: CourseCard[] = [
     accent: "#e34f62",
     number: "04",
     arrowPosition: "bottom",
+    to: "/celpip",
   },
   {
     title: "Interview English Mastery",
@@ -56,6 +62,7 @@ const courses: CourseCard[] = [
     accent: "#4d9b6a",
     number: "05",
     arrowPosition: "top",
+    to: "/business-communications",
   },
 ];
 
@@ -147,9 +154,10 @@ export function CoursesRealitySection() {
     const isAlternate = index % 2 === 1;
 
     return (
-      <article
+      <Link
+        to={course.to}
         key={course.title}
-        className="relative overflow-visible text-white shadow-[0_1px_0_rgba(17,24,39,0.05),0_14px_34px_-22px_rgba(0,0,0,0.28)] min-h-96 px-5 sm:px-6 pt-16 pb-6"
+        className="relative overflow-visible text-white shadow-[0_1px_0_rgba(17,24,39,0.05),0_14px_34px_-22px_rgba(0,0,0,0.28)] min-h-96 px-5 sm:px-6 pt-16 pb-6 block hover:scale-[1.02] transition-transform"
         style={{
           backgroundColor: course.accent,
           borderRadius: isAlternate ? "0.55rem 1.7rem 0.55rem 1.7rem" : "1.7rem 0.55rem 1.7rem 0.55rem",
@@ -169,8 +177,13 @@ export function CoursesRealitySection() {
           <p className="mt-3 text-[0.8rem] sm:text-[0.86rem] lg:text-[0.92rem] leading-6 font-medium max-w-[20ch] mx-auto text-white/92">
             {course.description}
           </p>
+
+          <div className="mt-6 inline-flex items-center gap-2 text-sm font-bold bg-white/20 px-4 py-2 rounded-full">
+            Explore Course
+            <ArrowRight className="w-4 h-4" />
+          </div>
         </div>
-      </article>
+      </Link>
     );
   };
 

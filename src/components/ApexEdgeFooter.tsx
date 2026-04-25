@@ -8,19 +8,22 @@ import {
   Phone,
   Youtube,
 } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import image from "@/assets/image.png";
 
 const exploreLinks = [
-  { label: "Home", href: "#" },
-  { label: "Online Courses", href: "#" },
-  { label: "Results", href: "#" },
-  { label: "About Us", href: "#" },
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/about" },
+  { label: "Contact Us", href: "/contact-us" },
+  { label: "Teachers", href: "/about#teachers" },
 ];
 
 const supportLinks = [
   { label: "Book Session", href: "/book-session" },
   { label: "IELTS", href: "/ielts" },
   { label: "PTE", href: "/pte" },
+  { label: "CELPIP", href: "/celpip" },
+  { label: "Business Comm.", href: "/business-communications" },
   { label: "Spoken English", href: "/spoken-english" },
 ];
 
@@ -66,13 +69,13 @@ export function ApexEdgeFooter() {
               </p>
 
               <div className="mt-4 flex flex-wrap gap-2 sm:mt-6 sm:gap-3">
-                <a
-                  href="/book-session"
+                <Link
+                  to="/book-session"
                   className="inline-flex items-center gap-1.5 rounded-xl bg-white px-3 py-2 text-[0.72rem] font-semibold text-[#c90f3b] transition hover:-translate-y-px hover:bg-white/92 sm:gap-2 sm:px-5 sm:py-3 sm:text-sm"
                 >
                   Book a Free Session
                   <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                </a>
+                </Link>
                 <a
                   href="mailto:info@apexedge.in"
                   className="inline-flex items-center gap-1.5 rounded-xl border border-white/18 bg-white/8 px-3 py-2 text-[0.72rem] font-semibold text-white transition hover:bg-white/14 sm:gap-2 sm:px-5 sm:py-3 sm:text-sm"
@@ -90,9 +93,9 @@ export function ApexEdgeFooter() {
               <ul className="mt-3 space-y-1.5 text-[0.72rem] sm:mt-5 sm:space-y-3 sm:text-base">
                 {exploreLinks.map((link) => (
                   <li key={link.label}>
-                    <a href={link.href} className="text-white/82 transition hover:text-white">
+                    <Link to={link.href} className="text-white/82 transition hover:text-white">
                       {link.label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -105,9 +108,9 @@ export function ApexEdgeFooter() {
               <ul className="mt-3 space-y-1.5 text-[0.72rem] sm:mt-5 sm:space-y-3 sm:text-base">
                 {supportLinks.map((link) => (
                   <li key={link.label}>
-                    <a href={link.href} className="text-white/82 transition hover:text-white">
+                    <Link to={link.href} className="text-white/82 transition hover:text-white">
                       {link.label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
