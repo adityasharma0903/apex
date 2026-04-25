@@ -38,7 +38,7 @@ function Index() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#fdf2e8] overflow-x-hidden">
+    <div className="min-h-screen bg-[#fdf2e8] overflow-x-hidden text-xs sm:text-sm">
       {/* Navbar */}
       <header className="fixed inset-x-0 top-0 z-50">
         <div
@@ -80,7 +80,7 @@ function Index() {
                 alt="Apex Edge logo"
                 className="h-10 w-10 sm:h-11 sm:w-11 object-contain"
               />
-              <span className="text-[#d90f40] font-extrabold tracking-tight text-lg sm:text-xl lg:text-2xl">Apex Edge</span>
+              <span className="text-[#d90f40] font-extrabold tracking-tight text-base sm:text-lg lg:text-xl">Apex Edge</span>
             </a>
 
             <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-base xl:text-lg font-semibold text-[oklch(0.2_0.02_250)]">
@@ -96,7 +96,7 @@ function Index() {
               <a href="#" className="hover:text-[#d90f40] transition">Contact Us</a>
             </nav>
 
-            <button className="hidden sm:inline-flex items-center gap-2 rounded-xl bg-[#d90f40] text-white px-4 sm:px-5 py-2.5 text-sm sm:text-base font-semibold shadow-[0_10px_20px_-16px_rgba(217,15,64,0.9)] hover:opacity-90 transition whitespace-nowrap">
+            <button className="hidden sm:inline-flex items-center gap-2 rounded-xl bg-[#d90f40] text-white px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-semibold shadow-[0_10px_20px_-16px_rgba(217,15,64,0.9)] hover:opacity-90 transition whitespace-nowrap">
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <circle cx="12" cy="8" r="4" />
                 <path d="M4 20c0-3.5 3.6-6 8-6s8 2.5 8 6" />
@@ -178,10 +178,11 @@ function Index() {
       {/* Hero */}
       <main className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 pt-2 sm:pt-8 lg:pt-12 pb-12 lg:pb-20 relative overflow-hidden">
         <div className="sm:hidden rounded-4xl px-4 pt-4 pb-4">
-          <h1 className="text-center text-[2.05rem] leading-[1.12] font-extrabold tracking-tight text-[oklch(0.14_0.02_250)]">
+          <h1 className="text-center text-[1.75rem] leading-[1.14] font-extrabold tracking-tight text-[oklch(0.14_0.02_250)]">
             Best English Learning
             <span className="block">Platform in India</span>
           </h1>
+
 
 
           <div className="mt-5 flex justify-center">
@@ -194,7 +195,7 @@ function Index() {
             />
           </div>
 
-          <button className="mt-4 w-full rounded-[0.9rem] bg-[#d90f40] py-3.5 text-white text-[1.75rem] font-semibold shadow-[0_18px_24px_-20px_rgba(217,15,64,0.8)]">
+            <button className="mt-4 w-full rounded-[0.9rem] bg-[#d90f40] py-3.5 text-white text-xl font-semibold shadow-[0_18px_24px_-20px_rgba(217,15,64,0.8)]">
             Start Your Journey
           </button>
         </div>
@@ -225,7 +226,7 @@ function Index() {
         <div className="grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] gap-10 xl:gap-16 items-center relative">
           {/* Left content */}
           <div className="relative z-10 max-w-2xl lg:ml-6 xl:ml-10">
-            <h1 className="font-extrabold text-(--brand-text) leading-[1.02] tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
+            <h1 className="font-extrabold text-(--brand-text) leading-[1.02] tracking-tight text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
               <div>GO BEYOND THE</div>
               <div className="flex items-center gap-3 sm:gap-4 flex-wrap mt-2">
                 <span>LIMITATIONS</span>
@@ -372,37 +373,52 @@ function Index() {
               </h2>
 
               <p className="mt-6 text-base sm:text-lg leading-relaxed text-[oklch(0.32_0.02_250)] max-w-3xl">
-                Kickstart your English learning journey with Apex Edge free self-study
-                material. Our resources are built for anyone who wants to improve
-                practical skills, whether you are preparing for exams, spoken English,
-                or advanced communication goals. With easy guides and practice routines,
-                you get a focused path to boost confidence and knowledge.
+               Step into a smarter, more refined way of mastering English with Apex Edge English—
+                where ambition meets expert guidance.
+
+                Whether you're aiming for a high band score in IELTS,
+                sharpening your Spoken English,
+                or preparing for PTE with precision,
+                our thoughtfully designed self-study resources set you on the path to success.
+
+                Crafted for modern learners,
+                our materials combine clarity, structure, and real exam insight—
+                so you don’t just study, you excel.
+
+                Every guide and practice module is created to elevate your confidence,
+                accuracy, and fluency effortlessly.
               </p>
 
+              <h2 className="mt-7 text-2xl sm:text-3xl font-semibold text-[oklch(0.2_0.02_250)]">
+                Why Choose Apex Edge English?
+              </h2>
+
               <ul className="mt-7 space-y-4">
-                <li className="flex items-start gap-3 text-[1.45rem] sm:text-[1.6rem] text-[oklch(0.25_0.02_250)] leading-snug">
+                <li className="flex items-start gap-3 text-[1.35rem] sm:text-[1.3rem] text-[oklch(0.25_0.02_250)] leading-snug">
                   <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#20a55a] text-white">
                     <svg className="w-3.5 h-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M3.5 8.5l2.5 2.5 6-6" />
                     </svg>
                   </span>
-                  Avail of free counselling sessions by our experts
+                  Complimentary one-on-one counselling sessions with experienced mentors
                 </li>
-                <li className="flex items-start gap-3 text-[1.45rem] sm:text-[1.6rem] text-[oklch(0.25_0.02_250)] leading-snug">
+
+                <li className="flex items-start gap-3 text-[1.35rem] sm:text-[1.3rem] text-[oklch(0.25_0.02_250)] leading-snug">
                   <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#20a55a] text-white">
                     <svg className="w-3.5 h-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M3.5 8.5l2.5 2.5 6-6" />
                     </svg>
                   </span>
-                  Flexible online coaching classes as per your convenience
+                  Flexible, high-quality online classes designed around your schedule
                 </li>
-                <li className="flex items-start gap-3 text-[1.45rem] sm:text-[1.6rem] text-[oklch(0.25_0.02_250)] leading-snug">
+
+                <li className="flex items-start gap-3 text-[1.35rem] sm:text-[1.3rem] text-[oklch(0.25_0.02_250)] leading-snug">
                   <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#20a55a] text-white">
                     <svg className="w-3.5 h-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M3.5 8.5l2.5 2.5 6-6" />
                     </svg>
                   </span>
-                  100% reliable and tailored study plans with accountability
+                  Fully personalized study plans with consistent tracking and accountability
                 </li>
               </ul>
 
