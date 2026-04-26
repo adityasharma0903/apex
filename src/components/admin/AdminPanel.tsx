@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 
 // CONFIG: URLs for your sheets
-const ENROLL_URL = "https://script.google.com/macros/s/AKfycbxZwLgu_Ec6jKlHdv4IC0urmPUzE8Xwmj4oAL4ght85laFFE0cEtjStjzFoEQhcsCj9/exec";
+const ENROLL_URL = "https://script.google.com/macros/s/AKfycbzaB_sYHzuT7DyGHBFDU7C1Or7N7XSSUlT_Z3dJy1wjS241xSzXx3AQhwuesPJJiARs/exec";
 const CONTACT_URL = "https://script.google.com/macros/s/AKfycbw44Z6wh2WRujRvh36WnoYhXUrDN1AvcZxByIGb4gSOL6IIGznhqw06Qj8wkdda7CacNQ/exec";
 
 // Login Credentials
@@ -288,24 +288,30 @@ export function AdminPanel() {
                               }) : 'Recent'}
                             </div>
 
-                            <span className="font-black text-[#1a1a1a] uppercase tracking-tight text-lg leading-tight">{item.Name || 'Anonymous'}</span>
-                            <span className="text-gray-400 font-medium text-xs mt-1">{item.Email}</span>
-                            <span className="text-[#d90f40] font-bold text-sm mt-1">{item.WhatsApp || item.Phone || item.WhatsApp_Number}</span>
+                            <span className="font-black text-[#1a1a1a] uppercase tracking-tight text-lg leading-tight">
+                              {getField(item, ['Name', 'Full Name', 'Customer', 'name']) || 'Anonymous'}
+                            </span>
+                            <span className="text-gray-400 font-medium text-xs mt-1">
+                              {getField(item, ['Email', 'E-mail', 'Email Address', 'email'])}
+                            </span>
+                            <span className="text-[#d90f40] font-bold text-sm mt-1">
+                              {getField(item, ['Phone no', 'WhatsApp', 'Phone', 'WhatsApp_Number', 'WhatsApp Number', 'phone'])}
+                            </span>
                             
                             {/* Extra Lead Details */}
                             <div className="flex flex-wrap gap-2 mt-3">
-                              {item.Qualification && <span className="text-[10px] bg-gray-100 px-2 py-0.5 rounded font-bold text-gray-500 uppercase">{item.Qualification}</span>}
-                              {item.Reason && <span className="text-[10px] bg-gray-100 px-2 py-0.5 rounded font-bold text-gray-500 uppercase">{item.Reason}</span>}
-                              {item.English_Level && <span className="text-[10px] bg-gray-100 px-2 py-0.5 rounded font-bold text-gray-500 uppercase">{item.English_Level}</span>}
-                              {item.Batch && <span className="text-[10px] bg-gray-100 px-2 py-0.5 rounded font-bold text-gray-500 uppercase">Batch: {item.Batch}</span>}
-                              {item.Contact_Method && <span className="text-[10px] bg-red-50 px-2 py-0.5 rounded font-bold text-[#d90f40] uppercase">Contact: {item.Contact_Method}</span>}
+                              {getField(item, ['Qualification', 'qualification']) && <span className="text-[10px] bg-gray-100 px-2 py-0.5 rounded font-bold text-gray-500 uppercase">{getField(item, ['Qualification', 'qualification'])}</span>}
+                              {getField(item, ['Reason', 'reason']) && <span className="text-[10px] bg-gray-100 px-2 py-0.5 rounded font-bold text-gray-500 uppercase">{getField(item, ['Reason', 'reason'])}</span>}
+                              {getField(item, ['English Level', 'English_Level', 'english_level']) && <span className="text-[10px] bg-gray-100 px-2 py-0.5 rounded font-bold text-gray-500 uppercase">{getField(item, ['English Level', 'English_Level', 'english_level'])}</span>}
+                              {getField(item, ['Batch', 'batch']) && <span className="text-[10px] bg-gray-100 px-2 py-0.5 rounded font-bold text-gray-500 uppercase">Batch: {getField(item, ['Batch', 'batch'])}</span>}
+                              {getField(item, ['Contact_Method']) && <span className="text-[10px] bg-red-50 px-2 py-0.5 rounded font-bold text-[#d90f40] uppercase">Contact: {getField(item, ['Contact_Method'])}</span>}
                             </div>
 
-                            {/* Message Display for Inquiries */}
-                            {item.Message && (
+                            {/* Message/Suggestion Display */}
+                            {(getField(item, ['Message', 'Suggestion', 'Suggestions'])) && (
                               <div className="mt-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
                                 <p className="text-xs text-gray-500 font-medium italic leading-relaxed">
-                                  "{item.Message}"
+                                  "{getField(item, ['Message', 'Suggestion', 'Suggestions'])}"
                                 </p>
                               </div>
                             )}
@@ -313,7 +319,7 @@ export function AdminPanel() {
                         </td>
                         <td className="px-8 py-6">
                           <span className="inline-flex px-4 py-2 rounded-xl bg-blue-50 text-blue-600 font-black text-xs uppercase tracking-widest border border-blue-100">
-                            {item.Selected_Course || item.Subject || 'General'}
+                            {getField(item, ['Selected Course', 'Selected_Course', 'Subject', 'Course']) || 'General'}
                           </span>
                         </td>
                         <td className="px-8 py-6">

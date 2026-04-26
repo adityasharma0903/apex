@@ -79,7 +79,7 @@ export function EnrollNowPage() {
     formData.append('form_type', 'enroll');
     
     // GOOGLE SHEETS URL (FOR ENROLLMENT ONLY)
-    const ENROLL_SHEET_URL = "https://script.google.com/macros/s/AKfycbxZwLgu_Ec6jKlHdv4IC0urmPUzE8Xwmj4oAL4ght85laFFE0cEtjStjzFoEQhcsCj9/exec"; 
+    const ENROLL_SHEET_URL = "https://script.google.com/macros/s/AKfycbzaB_sYHzuT7DyGHBFDU7C1Or7N7XSSUlT_Z3dJy1wjS241xSzXx3AQhwuesPJJiARs/exec"; 
 
     try {
       // 1. Submit to FormSubmit (Email)
@@ -261,58 +261,61 @@ export function EnrollNowPage() {
                       exit={{ opacity: 0, y: -20 }}
                     >
                       {/* Hidden field for selected course */}
-                      <input type="hidden" name="Selected_Course" value={currentCourse?.name || ''} />
+                      <input type="hidden" name="Selected Course" value={currentCourse?.name || ''} />
                       
                       <div className="space-y-4">
-                        <label className="block">
-                          <span className="text-xs font-black text-[#1a1a1a] uppercase tracking-widest mb-2 block pl-2">Full Name</span>
-                          <input 
-                            name="Name"
-                            type="text" 
-                            required
-                            placeholder="John Doe"
-                            className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-[#d90f40] focus:bg-white outline-none transition-all font-medium"
-                          />
-                        </label>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <label className="block">
-                            <span className="text-xs font-black text-[#1a1a1a] uppercase tracking-widest mb-2 block pl-2">City</span>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <label className="space-y-2 text-sm font-black text-[#1a1a1a] uppercase tracking-widest pl-1">
+                            Full Name
                             <input 
-                              name="City"
                               type="text" 
+                              name="Name"
                               required
-                              placeholder="Your City"
-                              className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-[#d90f40] focus:bg-white outline-none transition-all font-medium"
+                              placeholder="Aditya Sharma"
+                              className="w-full h-14 bg-gray-50 rounded-2xl border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-[#d90f40] px-6 outline-none transition-all font-medium text-[#1a1a1a]"
                             />
                           </label>
-                          <label className="block">
-                            <span className="text-xs font-black text-[#1a1a1a] uppercase tracking-widest mb-2 block pl-2">Email Address</span>
+                          <label className="space-y-2 text-sm font-black text-[#1a1a1a] uppercase tracking-widest pl-1">
+                            City
                             <input 
-                              name="Email"
-                              type="email" 
+                              type="text" 
+                              name="city"
                               required
-                              placeholder="john@example.com"
-                              className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-[#d90f40] focus:bg-white outline-none transition-all font-medium"
+                              placeholder="Chandigarh"
+                              className="w-full h-14 bg-gray-50 rounded-2xl border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-[#d90f40] px-6 outline-none transition-all font-medium text-[#1a1a1a]"
                             />
                           </label>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <label className="block">
-                            <span className="text-xs font-black text-[#1a1a1a] uppercase tracking-widest mb-2 block pl-2">WhatsApp Number</span>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <label className="space-y-2 text-sm font-black text-[#1a1a1a] uppercase tracking-widest pl-1">
+                            Email Address
                             <input 
-                              name="WhatsApp"
-                              type="tel" 
+                              type="email" 
+                              name="Email"
                               required
-                              placeholder="+91 98XXX XXXXX"
-                              className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-[#d90f40] focus:bg-white outline-none transition-all font-medium"
+                              placeholder="aditya@example.com"
+                              className="w-full h-14 bg-gray-50 rounded-2xl border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-[#d90f40] px-6 outline-none transition-all font-medium text-[#1a1a1a]"
                             />
                           </label>
-                          <label className="block">
-                            <span className="text-xs font-black text-[#1a1a1a] uppercase tracking-widest mb-2 block pl-2">Qualification</span>
+                          <label className="space-y-2 text-sm font-black text-[#1a1a1a] uppercase tracking-widest pl-1">
+                            WhatsApp Number
+                            <input 
+                              type="tel" 
+                              name="Phone no"
+                              required
+                              placeholder="+91 98765 43210"
+                              className="w-full h-14 bg-gray-50 rounded-2xl border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-[#d90f40] px-6 outline-none transition-all font-medium text-[#1a1a1a]"
+                            />
+                          </label>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <label className="space-y-2 text-sm font-black text-[#1a1a1a] uppercase tracking-widest pl-1">
+                            Qualification
                             <select 
                               name="Qualification"
-                              className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-[#d90f40] focus:bg-white outline-none transition-all font-medium appearance-none"
+                              className="w-full h-14 bg-gray-50 rounded-2xl border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-[#d90f40] px-6 outline-none transition-all font-medium text-[#1a1a1a] appearance-none"
                             >
                               <option>High School (10th)</option>
                               <option>Senior Secondary (12th)</option>
@@ -321,14 +324,11 @@ export function EnrollNowPage() {
                               <option>Working Professional</option>
                             </select>
                           </label>
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <label className="block">
-                            <span className="text-xs font-black text-[#1a1a1a] uppercase tracking-widest mb-2 block pl-2">Reason to Join</span>
+                          <label className="space-y-2 text-sm font-black text-[#1a1a1a] uppercase tracking-widest pl-1">
+                            Reason to Join
                             <select 
                               name="Reason"
-                              className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-[#d90f40] focus:bg-white outline-none transition-all font-medium appearance-none"
+                              className="w-full h-14 bg-gray-50 rounded-2xl border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-[#d90f40] px-6 outline-none transition-all font-medium text-[#1a1a1a] appearance-none"
                             >
                               <option>Study Abroad</option>
                               <option>Job / Work Permit</option>
@@ -336,50 +336,51 @@ export function EnrollNowPage() {
                               <option>Other</option>
                             </select>
                           </label>
-                          <label className="block">
-                            <span className="text-xs font-black text-[#1a1a1a] uppercase tracking-widest mb-2 block pl-2">English Level</span>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <label className="space-y-2 text-sm font-black text-[#1a1a1a] uppercase tracking-widest pl-1">
+                            English Proficiency
                             <select 
-                              name="English_Level"
-                              className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-[#d90f40] focus:bg-white outline-none transition-all font-medium appearance-none"
+                              name="English Level"
+                              className="w-full h-14 bg-gray-50 rounded-2xl border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-[#d90f40] px-6 outline-none transition-all font-medium text-[#1a1a1a] appearance-none"
                             >
                               <option>Beginner</option>
                               <option>Intermediate</option>
                               <option>Advanced</option>
                             </select>
                           </label>
+                          <label className="space-y-2 text-sm font-black text-[#1a1a1a] uppercase tracking-widest pl-1">
+                            Preferred Batch
+                            <select 
+                              name="Batch"
+                              className="w-full h-14 bg-gray-50 rounded-2xl border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-[#d90f40] px-6 outline-none transition-all font-medium text-[#1a1a1a] appearance-none"
+                            >
+                              <option>Morning (7 AM - 10 AM)</option>
+                              <option>Afternoon (1 PM - 4 PM)</option>
+                              <option>Evening (6 PM - 9 PM)</option>
+                            </select>
+                          </label>
                         </div>
 
-                        <label className="block">
-                          <span className="text-xs font-black text-[#1a1a1a] uppercase tracking-widest mb-2 block pl-2">Preferred Batch</span>
-                          <select 
-                            name="Batch"
-                            className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-[#d90f40] focus:bg-white outline-none transition-all font-medium appearance-none"
-                          >
-                            <option>Morning (7 AM - 10 AM)</option>
-                            <option>Afternoon (1 PM - 4 PM)</option>
-                            <option>Evening (6 PM - 9 PM)</option>
-                            <option>Weekend Only</option>
-                          </select>
-                        </label>
-
-                        <label className="block">
-                          <span className="text-xs font-black text-[#1a1a1a] uppercase tracking-widest mb-2 block pl-2">Any Suggestions / Message</span>
+                        <div className="space-y-2">
+                          <label className="text-sm font-black text-[#1a1a1a] uppercase tracking-widest pl-1">Any Specific Suggestions?</label>
                           <textarea 
-                            name="Suggestions"
-                            placeholder="Tell us more about your requirements..."
-                            className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-[#d90f40] focus:bg-white outline-none transition-all font-medium min-h-[100px]"
-                          />
-                        </label>
+                            name="Suggestion"
+                            placeholder="Tell us about your goals..."
+                            className="w-full h-32 bg-gray-50 rounded-3xl border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-[#d90f40] p-6 outline-none transition-all font-medium text-[#1a1a1a] resize-none"
+                          ></textarea>
+                        </div>
 
-                        <div className="flex items-start gap-3 pl-2">
+                        <div className="flex items-center gap-4 group cursor-pointer">
                           <input 
                             type="checkbox" 
-                            id="contact-agree"
-                            name="Agreed_to_Contact"
+                            id="consent" 
+                            name="Consent to contact"
                             required
-                            className="mt-1 w-5 h-5 rounded border-2 border-gray-300 text-[#d90f40] focus:ring-[#d90f40]"
+                            className="w-6 h-6 rounded-lg border-2 border-gray-200 text-[#d90f40] focus:ring-[#d90f40] cursor-pointer"
                           />
-                          <label htmlFor="contact-agree" className="text-xs font-bold text-gray-500 leading-tight">
+                          <label htmlFor="consent" className="text-xs font-bold text-gray-500 leading-tight">
                             I agree to be contacted by Apex Edge team via Email, WhatsApp, or Call for further enrollment details.
                           </label>
                         </div>
