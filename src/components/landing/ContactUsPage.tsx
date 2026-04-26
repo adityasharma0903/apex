@@ -1,18 +1,16 @@
 import { Link } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
-import logo from "@/assets/logo.png";
+import { useMemo, useState } from "react";
+import { motion } from "framer-motion";
 import studentGirl from "@/assets/student-girl.png";
 import { ApexEdgeFooter } from "../ApexEdgeFooter";
+import { Navbar } from "../Navbar";
+import { Mail, Phone, MessageCircle, MapPin, Clock } from "lucide-react";
 
 const adminEmail = "apexedge@gmail.com";
 const phoneNumber = "+91 79869 01874";
 const whatsappNumber = "+91 88377 35452";
 
 export function ContactUsPage() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isCoursesDropdownOpen, setIsCoursesDropdownOpen] = useState(false);
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -22,14 +20,6 @@ export function ContactUsPage() {
   const [message, setMessage] = useState("");
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [formError, setFormError] = useState("");
-
-  useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 28);
-
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const formReady = useMemo(
     () =>
@@ -60,288 +50,156 @@ export function ContactUsPage() {
   };
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-[#f3dde2] text-xs sm:text-sm">
-      <header className="fixed inset-x-0 top-0 z-50">
-        <div
-          className={`hidden sm:block bg-[#d90f40] text-white transition-all duration-300 overflow-hidden ${isScrolled ? "max-h-0 opacity-0" : "max-h-20 opacity-100"
-            }`}
-        >
-          <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 h-12 flex items-center justify-between text-xs sm:text-sm font-semibold">
-            <div className="hidden md:flex items-center gap-2.5 whitespace-nowrap">
-              <span className="text-base" aria-hidden="true">🎁</span>
-              <span>Claim FREE Demo Class & Scholarships</span>
-            </div>
-            <div className="flex items-center gap-2.5 sm:gap-4 ml-auto whitespace-nowrap">
-              <a href={`mailto:${adminEmail}`} className="hover:opacity-85 transition">
-                {adminEmail}
-              </a>
-              <span className="hidden sm:inline-block h-5 w-px bg-white" />
-              <a href={`tel:${phoneNumber.replace(/\D/g, "")}`} className="hover:opacity-85 transition">
-                {phoneNumber}
-              </a>
-            </div>
-          </div>
-        </div>
+    <main className="min-h-screen flex flex-col overflow-x-hidden bg-white text-xs sm:text-sm">
+      <Navbar />
 
-        <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 pt-0 sm:pt-1">
+      <div className="flex-grow">
+        {/* Premium Hero Section - IELTS Style */}
+        <section className="relative w-full pt-32 sm:pt-48 pb-16 sm:pb-32 px-4 sm:px-6 lg:px-12 bg-white overflow-hidden">
+          {/* Red Curved Background Shape */}
           <div
-            className={`mx-auto flex items-center justify-between transition-all duration-300 ${isScrolled
-              ? "mt-1.5 rounded-xl bg-white border border-[#eed7df] shadow-[0_10px_30px_-24px_rgba(20,20,40,0.45)]"
-              : "-mt-1 rounded-b-[1.65rem] bg-white border border-[#f0f0f0] shadow-[0_18px_28px_-22px_rgba(0,0,0,0.35)]"
-              } px-4 sm:px-6 lg:px-8 py-3.5`}
-          >
-            <Link to="/" className="flex items-center gap-2.5 sm:gap-3 shrink-0">
-              <img src={logo} alt="Apex Edge logo" className="h-10 w-10 sm:h-11 sm:w-11 object-contain" />
-              <span className="text-[#d90f40] font-extrabold tracking-tight text-base sm:text-lg lg:text-xl">Apex Edge</span>
-            </Link>
+            className="absolute top-0 left-0 w-full h-[450px] sm:h-[650px] bg-[#d90f40] z-0"
+            style={{
+              clipPath: 'ellipse(130% 100% at 50% 0%)'
+            }}
+          />
 
-            <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-base xl:text-lg font-semibold text-[oklch(0.2_0.02_250)]">
-              <Link to="/" className="hover:text-[#d90f40] transition">Home</Link>
-              <div className="relative">
-                <button
-                  onClick={() => setIsCoursesDropdownOpen(!isCoursesDropdownOpen)}
-                  onBlur={() => setTimeout(() => setIsCoursesDropdownOpen(false), 150)}
-                  className="hover:text-[#d90f40] transition inline-flex items-center gap-2"
-                >
-                  Online Courses
-                  <svg className={`w-4 h-4 transition-transform ${isCoursesDropdownOpen ? "rotate-180" : ""}`} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-                    <path d="M3.2 5.5L8 10.3l4.8-4.8H3.2z" />
-                  </svg>
-                </button>
-                {isCoursesDropdownOpen && (
-                  <div className="absolute top-full left-0 mt-3 w-72 bg-[#f5e8ec] rounded-2xl shadow-lg border border-[#e5d5e0] p-4 z-50 space-y-2">
-                    <Link to="/ielts" className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-white transition cursor-pointer">
-                      <div className="w-11 h-11 bg-[#d72646] rounded-lg flex items-center justify-center text-white font-bold text-xs shrink-0">IELTS</div>
-                      <span className="text-base font-semibold text-[#333]">IELTS</span>
-                    </Link>
-                    <Link to="/pte" className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-white transition cursor-pointer">
-                      <div className="w-11 h-11 bg-[#2c5aa0] rounded-lg flex items-center justify-center text-white font-bold text-xs shrink-0">PTE</div>
-                      <span className="text-base font-semibold text-[#333]">PTE</span>
-                    </Link>
-                    <a href="/" className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-white transition cursor-pointer">
-                      <div className="w-11 h-11 bg-[#f59e0b] rounded-lg flex items-center justify-center text-white font-bold text-xs shrink-0">CELPIP</div>
-                      <span className="text-base font-semibold text-[#333]">CELPIP</span>
-                    </a>
-                    <a href="/" className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-white transition cursor-pointer">
-                      <div className="w-11 h-11 bg-[#10b981] rounded-lg flex items-center justify-center text-white font-bold text-xs shrink-0 text-center">BUS.</div>
-                      <span className="text-base font-semibold text-[#333]">Business Communications</span>
-                    </a>
-                    <Link to="/spoken-english" className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-white transition cursor-pointer">
-                      <div className="w-11 h-11 bg-[#f59e0b] rounded-lg flex items-center justify-center text-white font-bold text-xs shrink-0">SE</div>
-                      <span className="text-base font-semibold text-[#333]">Spoken English</span>
-                    </Link>
-                  </div>
-                )}
-              </div>
-              <a href="#" className="hover:text-[#d90f40] transition">Results</a>
-              <a href="#" className="hover:text-[#d90f40] transition">About Us</a>
-              <Link to="/contact-us" className="text-[#d90f40] transition">Contact Us</Link>
-            </nav>
-
-            <button className="hidden sm:inline-flex items-center gap-2 rounded-xl bg-[#d90f40] text-white px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-semibold shadow-[0_10px_20px_-16px_rgba(217,15,64,0.9)] hover:opacity-90 transition whitespace-nowrap">
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="8" r="4" />
-                <path d="M4 20c0-3.5 3.6-6 8-6s8 2.5 8 6" />
-              </svg>
-              Enroll Now
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setIsMobileMenuOpen(true)}
-              aria-label="Open menu"
-              className="inline-flex sm:hidden h-11 w-11 items-center justify-center rounded-lg bg-[#d90f40] text-white shadow-[0_10px_20px_-16px_rgba(217,15,64,0.9)]"
-            >
-              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
-                <path d="M4 7h16" />
-                <path d="M4 12h16" />
-                <path d="M4 17h16" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </header>
-
-      <div
-        className={`fixed inset-0 z-60 sm:hidden transition-opacity duration-300 ${isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-          }`}
-        aria-hidden={!isMobileMenuOpen}
-      >
-        <button
-          type="button"
-          aria-label="Close menu"
-          onClick={() => setIsMobileMenuOpen(false)}
-          className="absolute inset-0 bg-black/25"
-        />
-
-        <aside
-          className={`absolute inset-y-0 left-0 w-[84%] max-w-[20rem] bg-white shadow-[0_20px_40px_-22px_rgba(0,0,0,0.35)] px-5 py-5 transition-transform duration-300 ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-            }`}
-        >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2.5">
-              <img src={logo} alt="Apex Edge logo" className="h-9 w-9 object-contain" />
-              <span className="text-[#d90f40] font-extrabold tracking-tight text-2xl">Apex Edge</span>
-            </div>
-
-            <button
-              type="button"
-              aria-label="Close menu"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-black text-white text-xs"
-            >
-              ✕
-            </button>
-          </div>
-
-          <button className="mt-6 w-full rounded-xl bg-[#d90f40] py-3.5 text-white text-lg font-semibold">
-            Book a Free Session
-          </button>
-
-          <nav className="mt-7 space-y-5 text-xl font-semibold text-[oklch(0.2_0.02_250)]">
-            <Link to="/" className="flex items-center gap-3" onClick={() => setIsMobileMenuOpen(false)}>
-              <svg className="w-5 h-5 text-[#d90f40]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                <polyline points="9 22 9 12 15 12 15 22" />
-              </svg>
-              <span>Home</span>
-            </Link>
-            <div>
-              <button
-                onClick={() => setIsCoursesDropdownOpen(!isCoursesDropdownOpen)}
-                className="w-full text-left flex items-center gap-3 hover:text-[#d90f40] transition"
+          <div className="max-w-7xl mx-auto relative z-10">
+            <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+              {/* Text Content */}
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                className="flex flex-col items-center lg:items-start text-center lg:text-left"
               >
-                <svg className="w-5 h-5 text-[#d90f40]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="8" r="4" />
-                  <path d="M4 20c0-3.5 3.6-6 8-6s8 2.5 8 6" />
-                </svg>
-                <span>Online Courses</span>
-                <svg className={`w-5 h-5 ml-auto transition-transform ${isCoursesDropdownOpen ? "rotate-180" : ""}`} viewBox="0 0 16 16" fill="currentColor">
-                  <path d="M3.2 5.5L8 10.3l4.8-4.8H3.2z" />
-                </svg>
-              </button>
-              {isCoursesDropdownOpen && (
-                <div className="mt-4 bg-[#f5e8ec] rounded-2xl p-4 space-y-3">
-                  <Link to="/ielts" className="flex items-center gap-3 p-3 rounded-lg hover:bg-white transition" onClick={() => setIsMobileMenuOpen(false)}>
-                    <div className="w-10 h-10 bg-[#d72646] rounded-lg flex items-center justify-center text-white font-bold text-xs shrink-0">IELTS</div>
-                    <span className="text-base font-semibold text-[#333]">IELTS</span>
-                  </Link>
-                  <Link to="/pte" className="flex items-center gap-3 p-3 rounded-lg hover:bg-white transition" onClick={() => setIsMobileMenuOpen(false)}>
-                    <div className="w-10 h-10 bg-[#2c5aa0] rounded-lg flex items-center justify-center text-white font-bold text-xs shrink-0">PTE</div>
-                    <span className="text-base font-semibold text-[#333]">PTE</span>
-                  </Link>
-                  <a href="/" className="flex items-center gap-3 p-3 rounded-lg hover:bg-white transition">
-                    <div className="w-10 h-10 bg-[#f59e0b] rounded-lg flex items-center justify-center text-white font-bold text-xs shrink-0">CELPIP</div>
-                    <span className="text-base font-semibold text-[#333]">CELPIP</span>
-                  </a>
-                  <a href="/" className="flex items-center gap-3 p-3 rounded-lg hover:bg-white transition">
-                    <div className="w-10 h-10 bg-[#10b981] rounded-lg flex items-center justify-center text-white font-bold text-xs shrink-0">BUS.</div>
-                    <span className="text-base font-semibold text-[#333]">Business Communications</span>
-                  </a>
-                  <Link to="/spoken-english" className="flex items-center gap-3 p-3 rounded-lg hover:bg-white transition" onClick={() => setIsMobileMenuOpen(false)}>
-                    <div className="w-10 h-10 bg-[#f59e0b] rounded-lg flex items-center justify-center text-white font-bold text-xs shrink-0">SE</div>
-                    <span className="text-base font-semibold text-[#333]">Spoken English</span>
-                  </Link>
+                <span className="inline-block px-5 py-2 rounded-full bg-white/20 text-white font-black text-xs uppercase tracking-[0.2em] mb-6">
+                  Direct Access
+                </span>
+                <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black text-white leading-[0.9] mb-8 tracking-tighter">
+                  GET IN <br />
+                  <span className="text-white/80">TOUCH.</span>
+                </h1>
+                <p className="text-xl text-white/90 font-medium leading-relaxed mb-10 max-w-xl">
+                  Have questions about IELTS, PTE, or Spoken English?
+                  Our expert counselors are just a click away to guide
+                  your global career path.
+                </p>
+
+                {/* Prominent Phone Number Display */}
+                <div className="flex flex-col gap-6 mb-12 w-full">
+                  <div className="flex items-center gap-6 p-6 bg-white rounded-[2rem] shadow-2xl border border-gray-100 max-w-md transform hover:scale-105 transition-all duration-300">
+                    <div className="w-16 h-16 rounded-2xl bg-[#d90f40] flex items-center justify-center text-white shrink-0 shadow-lg">
+                      <Phone className="w-8 h-8" />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-xs font-black text-[#d90f40] uppercase tracking-widest mb-1">CALL US DIRECTLY</p>
+                      <p className="text-2xl sm:text-3xl font-black text-[#1a1a1a] tracking-tight">{phoneNumber}</p>
+                    </div>
+                  </div>
+
+                  {/* <button 
+                  onClick={() => {
+                    const formElement = document.getElementById('contact-form');
+                    formElement?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-white text-lg font-black hover:bg-white hover:text-[#d90f40] transition-all max-w-[280px]"
+                >
+                  Send a Message
+                  <MessageCircle className="w-5 h-5" />
+                </button> */}
                 </div>
-              )}
-            </div>
-            <a href="#" className="flex items-center gap-3">Results</a>
-            <a href="#" className="flex items-center gap-3">About Us</a>
-            <Link to="/contact-us" className="flex items-center gap-3 text-[#d90f40]" onClick={() => setIsMobileMenuOpen(false)}>
-              Contact Us
-            </Link>
-          </nav>
-        </aside>
-      </div>
 
-      <div className="h-28 sm:h-32" />
 
-      <section className="bg-[#f3dde2] pb-8">
-        <div className="w-full overflow-hidden shadow-[0_20px_40px_-30px_rgba(15,23,42,0.45)]">
-          <div className="grid min-h-[42vh] grid-cols-1 lg:min-h-[46vh] lg:grid-cols-2">
-            <div className="relative min-h-60 bg-[#1e1c2a] lg:min-h-[30vh]">
-              <img
-                src={studentGirl}
-                alt="Deepika Chawla"
-                className="h-130 w-full -translate-y-1 object-cover"
-              />
-            </div>
+              </motion.div>
 
-            <div className="bg-[#f6e7eb] px-6 py-8 text-[#111827] sm:px-10 sm:py-10 lg:px-14 lg:py-10">
-              <p className="text-sm uppercase tracking-[0.24em] text-[#d90f40]">Get in Touch</p>
-              <h1 className="mt-4 text-4xl font-extrabold tracking-tight text-[#111827] sm:text-5xl">
-                Reach Apex Edge for fast support and expert guidance.
-              </h1>
-              <p className="mt-4 max-w-2xl text-base leading-8 text-[#4b5563] sm:text-lg">
-                Connect with our team for personalised help, course counselling, or any query related to IELTS, PTE, CELPIP, Business Communications and Spoken English.
-              </p>
+              {/* Visual Element */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1 }}
+                className="relative flex justify-center w-full max-w-[400px] sm:max-w-none"
+              >
+                <div className="relative w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] flex items-center justify-center scale-110 sm:scale-100">
+                  <svg className="absolute inset-0 w-full h-full -rotate-90 opacity-40" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="white" strokeWidth="2" strokeDasharray="60 10 30 10 40 10" />
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="white" strokeWidth="1" strokeDasharray="10 5" />
+                  </svg>
 
-              <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
-                <div className="inline-flex items-center gap-3 rounded-3xl bg-[#fef2f2] px-4 py-3 shadow-sm">
-                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#d90f40] text-white">A</span>
-                  <div>
-                    <p className="text-sm uppercase tracking-[0.18em] text-[#6b7280]">Brand</p>
-                    <p className="font-semibold text-[#111827]">Apex Edge</p>
+                  <div className="relative w-[260px] h-[260px] sm:w-[420px] sm:h-[420px] rounded-full overflow-hidden border-[10px] border-white shadow-2xl bg-white z-10 transform -rotate-3 hover:rotate-0 transition-all duration-700">
+                    <img
+                      src={studentGirl}
+                      alt="Expert Guidance"
+                      className="w-full h-full object-cover scale-110 object-top"
+                    />
+                  </div>
+
+                  {/* Floating Badge */}
+                  <div className="absolute -bottom-4 -right-4 sm:bottom-10 sm:right-10 bg-white p-4 sm:p-6 rounded-3xl shadow-2xl z-20 flex items-center gap-4 border border-gray-100">
+                    <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-2xl bg-[#d90f40] flex items-center justify-center text-white">
+                      <MessageCircle className="w-6 h-6 sm:w-8 sm:h-8" />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Support</p>
+                      <p className="text-sm sm:text-lg font-black text-black">24/7 Active</p>
+                    </div>
                   </div>
                 </div>
-                <div className="inline-flex items-center gap-4">
-                  <a href={`https://wa.me/${whatsappNumber.replace(/\D/g, "")}`} target="_blank" rel="noreferrer" className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#25d366] text-white shadow-sm transition hover:bg-[#1ebe5a]">
-                    <span className="text-lg font-bold">W</span>
-                  </a>
-                  <a href={`mailto:${adminEmail}`} className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#f72585] text-white shadow-sm transition hover:bg-[#d31d72]">
-                    <span className="text-lg font-bold">@</span>
-                  </a>
-                  <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0a66c2] text-white shadow-sm transition hover:bg-[#0557a4]">
-                    <span className="text-lg font-bold">in</span>
-                  </a>
-                </div>
-              </div>
-
-              <div className="mt-8 flex flex-col gap-2 text-xl font-bold text-[#111827] sm:flex-row sm:items-center sm:gap-8 sm:text-2xl">
-                <a href={`tel:${phoneNumber.replace(/\D/g, "")}`} className="transition hover:text-[#d90f40]">{phoneNumber}</a>
-                <a href={`mailto:${adminEmail}`} className="transition hover:text-[#d90f40]">{adminEmail}</a>
-              </div>
-
-              <p className="mt-4 text-sm font-semibold text-[#6b7280]">Anchor | Corporate Trainer</p>
+              </motion.div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="bg-[#f3dde2] py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-6 md:grid-cols-3">
-            <article className="rounded-[1.8rem] border border-[#e5e7eb] bg-white p-6 shadow-sm">
-              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#6b7280]">Call</p>
-              <h2 className="mt-4 text-xl font-semibold text-[#111827]">Phone Support</h2>
-              <p className="mt-3 text-sm leading-7 text-[#4b5563]">Talk with our advisors directly for fast answers and course guidance.</p>
-              <a href={`tel:${phoneNumber.replace(/\D/g, "")}`} className="mt-5 inline-flex items-center justify-center rounded-2xl bg-[#eff6ff] px-4 py-3 text-sm font-semibold text-[#1d4ed8] transition hover:bg-[#dbeafe]">
-                Call Now
-              </a>
-            </article>
+        {/* Cards Section */}
+        <section className="bg-white py-16 px-4">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid gap-8 md:grid-cols-3">
+              <motion.div
+                whileHover={{ y: -10 }}
+                className="rounded-[2.5rem] border border-gray-100 bg-gray-50 p-10 shadow-sm transition-all"
+              >
+                <div className="w-14 h-14 rounded-2xl bg-[#d90f40]/10 flex items-center justify-center text-[#d90f40] mb-8">
+                  <Phone className="w-7 h-7" />
+                </div>
+                <h2 className="text-2xl font-black text-[#1a1a1a]">Phone Support</h2>
+                <p className="mt-4 text-gray-500 font-medium leading-relaxed">Talk with our advisors directly for fast answers and course guidance.</p>
+                <a href={`tel:${phoneNumber.replace(/\D/g, "")}`} className="mt-8 inline-flex items-center justify-center rounded-xl bg-white px-8 py-4 text-sm font-black text-[#d90f40] border border-gray-200 shadow-sm hover:bg-gray-50 transition">
+                  Call Now
+                </a>
+              </motion.div>
 
-            <article className="rounded-[1.8rem] border border-[#e5e7eb] bg-white p-6 shadow-sm">
-              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#6b7280]">WhatsApp</p>
-              <h2 className="mt-4 text-xl font-semibold text-[#111827]">Chat on WhatsApp</h2>
-              <p className="mt-3 text-sm leading-7 text-[#4b5563]">Send us a message instantly and we’ll reply with all the details you need.</p>
-              <a href={`https://wa.me/${whatsappNumber.replace(/\D/g, "")}`} target="_blank" rel="noreferrer" className="mt-5 inline-flex items-center justify-center rounded-2xl bg-[#dcfce7] px-4 py-3 text-sm font-semibold text-[#15803d] transition hover:bg-[#bbf7d0]">
-                Message Us
-              </a>
-            </article>
+              <motion.div
+                whileHover={{ y: -10 }}
+                className="rounded-[2.5rem] border border-gray-100 bg-gray-50 p-10 shadow-sm transition-all"
+              >
+                <div className="w-14 h-14 rounded-2xl bg-[#25d366]/10 flex items-center justify-center text-[#25d366] mb-8">
+                  <MessageCircle className="w-7 h-7" />
+                </div>
+                <h2 className="text-2xl font-black text-[#1a1a1a]">WhatsApp Chat</h2>
+                <p className="mt-4 text-gray-500 font-medium leading-relaxed">Send us a message instantly and we’ll reply with all the details you need.</p>
+                <a href={`https://wa.me/${whatsappNumber.replace(/\D/g, "")}`} target="_blank" rel="noreferrer" className="mt-8 inline-flex items-center justify-center rounded-xl bg-white px-8 py-4 text-sm font-black text-[#25d366] border border-gray-200 shadow-sm hover:bg-gray-50 transition">
+                  Message Us
+                </a>
+              </motion.div>
 
-            <article className="rounded-[1.8rem] border border-[#e5e7eb] bg-white p-6 shadow-sm">
-              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#6b7280]">Email</p>
-              <h2 className="mt-4 text-xl font-semibold text-[#111827]">Send an Email</h2>
-              <p className="mt-3 text-sm leading-7 text-[#4b5563]">Share your questions or requirements, and we’ll respond swiftly to your inbox.</p>
-              <a href={`mailto:${adminEmail}`} className="mt-5 inline-flex items-center justify-center rounded-2xl bg-[#fef3c7] px-4 py-3 text-sm font-semibold text-[#b45309] transition hover:bg-[#fde68a]">
-                Email Us
-              </a>
-            </article>
+              <motion.div
+                whileHover={{ y: -10 }}
+                className="rounded-[2.5rem] border border-gray-100 bg-gray-50 p-10 shadow-sm transition-all"
+              >
+                <div className="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-8">
+                  <Mail className="w-7 h-7" />
+                </div>
+                <h2 className="text-2xl font-black text-[#1a1a1a]">Send an Email</h2>
+                <p className="mt-4 text-gray-500 font-medium leading-relaxed">Share your questions or requirements, and we’ll respond swiftly to your inbox.</p>
+                <a href={`mailto:${adminEmail}`} className="mt-8 inline-flex items-center justify-center rounded-xl bg-white px-8 py-4 text-sm font-black text-blue-500 border border-gray-200 shadow-sm hover:bg-gray-50 transition">
+                  Email Us
+                </a>
+              </motion.div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* <section className="bg-white py-16">
+        {/* <section className="bg-white py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm uppercase tracking-[0.24em] text-[#6b7280]">Multiple Ways to Reach Us</p>
@@ -384,9 +242,8 @@ export function ContactUsPage() {
         </div>
       </section> */}
 
-      <section className="bg-[#f3dde2] py-16">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-[2rem] border border-[#ead4da] bg-[#f6e7eb] p-5 shadow-[0_20px_50px_-30px_rgba(15,23,42,0.2)] sm:p-8">
+        <section className="bg-[#f3dde2] py-16">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <div className="relative mx-auto max-w-262.5">
               <div className="absolute -left-8 top-1/2 z-20 hidden h-108 w-80 -translate-y-1/2 overflow-hidden rounded-sm bg-[#f1284b] shadow-[0_26px_42px_-24px_rgba(0,0,0,0.58)] lg:block">
                 <img
@@ -521,18 +378,10 @@ export function ContactUsPage() {
                 </form>
               </div>
 
-              <div className="mb-5 overflow-hidden rounded-sm bg-[#f1284b] p-2 lg:hidden">
-                <img
-                  src={studentGirl}
-                  alt="Apex Edge contact"
-                  className="h-56 w-full rounded-sm object-cover"
-                />
-              </div>
             </div>
           </div>
-        </div>
-      </section>
-
+        </section>
+      </div>
       <ApexEdgeFooter />
     </main>
   );

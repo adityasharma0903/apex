@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
-import { Headphones, BookOpen, PenTool, MessageSquare, CheckCircle2, ShieldCheck, UserCheck, GraduationCap, Zap, CircleArrowRight, Star, ArrowRight, Play, Quote } from "lucide-react";
+import { Headphones, BookOpen, PenTool, MessageSquare, CheckCircle2, ShieldCheck, UserCheck, GraduationCap, Zap, CircleArrowRight, Star, ArrowRight, Play, Quote, Award, Users, ThumbsUp, Clock, Search, Briefcase, Rocket, Timer, Trophy, TrendingUp, Handshake, Mail, Globe } from "lucide-react";
 import { Navbar } from "../Navbar";
 import { ApexEdgeFooter } from "../ApexEdgeFooter";
 
@@ -66,82 +66,160 @@ const eligibilityCriteria = [
   },
 ];
 
+const reasons = [
+  {
+    title: "Holistic Skill Development",
+    icon: <TrendingUp className="w-8 h-8" />,
+    description: "At Apex Edge, we strive to provide all our students with holistic skill development by improving their language proficiency, time management skills, answering methodology, and all other necessary aspects.",
+    color: "#006d77", // Teal
+  },
+  {
+    title: "Experienced Faculty",
+    icon: <UserCheck className="w-8 h-8" />,
+    description: "We have the most experienced 9 band IDP Certified trainers and affiliated teaching faculty to provide our students with top-quality classes. Our professionals are highly efficient in promoting a positive and productive classroom environment.",
+    color: "#f4a261", // Orange
+  },
+  {
+    title: "Specialised Online Portal",
+    icon: <Briefcase className="w-8 h-8" />,
+    description: "At Apex Edge we provide a specialised online portal to help students gain better proficiency in listening, reading, writing, and speaking skills to get commendable results in the IELTS examination.",
+    color: "#e76f51", // Burnt Orange
+  },
+  {
+    title: "Advanced Learning Approach",
+    icon: <Handshake className="w-8 h-8" />,
+    description: "We follow an advanced learning approach at Apex Edge, keeping track of the latest syllabus. Also, we offer frequent mock tests and feedback to nurture your skills better.",
+    color: "#d62828", // Red
+  },
+  {
+    title: "Complete Guidance",
+    icon: <Mail className="w-8 h-8" />,
+    description: "We at Apex Edge provide complete guidance for international education. So, you can get considerable assistance in processing your visa, curating documents, getting travel tickets, etc.",
+    color: "#4a4e69", // Dark Purple
+  },
+  {
+    title: "Flexible Sessions",
+    icon: <Globe className="w-8 h-8" />,
+    description: "We offer the most flexible class schedules for our students. Therefore, no matter if you are a full-time academic student or working professional, you can always choose classes according to your preferences at any time of the day!",
+    color: "#023e8a", // Dark Blue
+  },
+];
+
 export function IELTSPage() {
   return (
-    <div className="min-h-screen bg-[#fdf2e8] overflow-x-hidden font-sans">
+    <div className="min-h-screen bg-white overflow-x-hidden font-sans">
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="relative w-full pt-24 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-12">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] gap-12 lg:gap-16 items-center text-center lg:text-left">
+      {/* Hero Section - Exact Replica of Image 1 with Red Curved Background */}
+      <section className="relative w-full pt-32 sm:pt-48 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-12 bg-white overflow-hidden">
+        {/* Red Curved Background Shape based on Image 2 scribble */}
+        <div 
+          className="absolute top-0 left-0 w-full h-[450px] sm:h-[600px] bg-[#d90f40] z-0" 
+          style={{ 
+            clipPath: 'ellipse(120% 100% at 50% 0%)' 
+          }} 
+        />
+
+        {/* Decorative Doodles from Image 1 */}
+        <div className="absolute top-10 left-[540%] opacity-40 pointer-events-none">
+          {/* Book doodle */}
+          <BookOpen className="w-10 h-10 text-gray-400 -rotate-12" />
+        </div>
+        <div className="absolute top-20 right-[35%] opacity-40 pointer-events-none">
+          {/* Heart doodle */}
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-gray-400 rotate-12">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        </div>
+        <div className="absolute top-32 right-[15%] opacity-40 pointer-events-none">
+          {/* Star doodle */}
+          <Star className="w-8 h-8 text-yellow-500 rotate-45" />
+        </div>
+        <div className="absolute bottom-[25%] left-[45%] opacity-40 pointer-events-none">
+          {/* Green scribble doodle */}
+          <svg width="60" height="60" viewBox="0 0 100 100" fill="none" stroke="#2ec4b6" strokeWidth="2" className="rotate-12">
+            <path d="M20,80 Q40,40 60,80 T100,20" />
+          </svg>
+        </div>
+        <div className="absolute bottom-[10%] right-[5%] opacity-40 pointer-events-none">
+          {/* Headset doodle */}
+          <Headphones className="w-12 h-12 text-gray-300 -rotate-12" />
+        </div>
+
+        <div className="max-w-7xl mx-auto flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-6 items-center">
+          {/* Text Content - Part 1 */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
+            className="flex flex-col items-center lg:items-start text-center lg:text-left z-10 order-1"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#d90f40]/10 text-[#d90f40] font-bold text-xs sm:text-sm mb-6 sm:mb-8 uppercase tracking-widest mx-auto lg:mx-0">
-               <Zap className="w-4 h-4" /> Most Popular Course
-            </div>
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-[#1a1a1a] leading-tight sm:leading-[1.05] mb-6 sm:mb-8 tracking-tight">
-              Unlock Your <br className="hidden sm:block" /> <span className="text-[#d90f40]">Global Future</span> <br className="hidden sm:block" /> with IELTS.
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white leading-tight mb-6 sm:mb-8 tracking-tight">
+              Your Path to IELTS <br />
+              Success Start Here
             </h1>
-            <p className="text-lg sm:text-xl text-[#555] leading-relaxed mb-8 sm:mb-12 max-w-xl font-medium mx-auto lg:mx-0">
-              Join our comprehensive coaching program designed to help you 
-              achieve a Band 8.0 or higher. Personalized strategies for every module.
+            <p className="text-lg sm:text-xl text-white/90 leading-relaxed mb-10 max-w-xl font-medium">
+              It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
             </p>
-            
-            <div className="flex flex-col sm:flex-row flex-wrap justify-center lg:justify-start gap-6">
-              <Link to="/book-session" className="px-8 sm:px-10 py-4 sm:py-5 rounded-2xl bg-[#d90f40] text-white font-bold text-base sm:text-lg shadow-[0_20px_40px_-10px_rgba(217,15,64,0.3)] hover:scale-105 transition-all flex items-center justify-center gap-3 group">
-                Start Your Journey <CircleArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <div className="flex items-center justify-center gap-4 group cursor-pointer">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white border-2 border-[#1a1a1a]/10 flex items-center justify-center group-hover:bg-[#1a1a1a] group-hover:text-white transition-all">
-                  <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-current ml-1" />
-                </div>
-                <span className="font-bold text-base sm:text-lg text-[#1a1a1a]">Watch Demo</span>
-              </div>
-            </div>
 
-            <div className="mt-12 sm:mt-16 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6 sm:gap-10">
-               <div className="flex -space-x-3 sm:-space-x-4">
-                  {[1,2,3,4].map(i => (
-                    <div key={i} className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-4 border-white bg-gray-200 overflow-hidden shadow-lg">
-                       <img src={`/teachers/${i % 2 === 0 ? 'priya' : 'anurag'}.png`} className="w-full h-full object-cover" alt="Student" />
-                    </div>
-                  ))}
-               </div>
-               <div className="text-center sm:text-left">
-                  <p className="text-xl sm:text-2xl font-black text-[#1a1a1a]">15,000+</p>
-                  <p className="text-[10px] sm:text-sm font-bold text-gray-500 uppercase tracking-widest">Successful Students</p>
-               </div>
+            {/* Desktop Button - Hidden on Mobile */}
+            <div className="hidden lg:flex flex-row items-center gap-8">
+              <Link to="/book-session" className="px-10 py-4 rounded-lg bg-white text-[#d90f40] font-black text-lg shadow-lg hover:bg-gray-100 transition-all">
+                Get Admission
+              </Link>
             </div>
           </motion.div>
 
+          {/* Student Image - Part 2 */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, rotate: 2 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
-            className="relative w-full max-w-lg mx-auto lg:max-w-none"
+            className="relative flex justify-center order-2 w-full max-w-[400px] sm:max-w-none"
           >
-            <div className="absolute inset-0 bg-[#d90f40] rounded-[2.5rem] sm:rounded-[4rem] rotate-3 blur-3xl opacity-5" />
-            <div className="relative rounded-[2.5rem] sm:rounded-[4rem] overflow-hidden shadow-2xl border-4 sm:border-8 border-white bg-white">
-              <img 
-                src={heroStudent} 
-                alt="IELTS Student" 
-                className="w-full h-[400px] sm:h-[650px] object-cover"
-              />
-              <div className="absolute top-6 sm:top-10 right-6 sm:top-10 bg-white/90 backdrop-blur-md p-4 sm:p-6 rounded-2xl sm:rounded-3xl shadow-xl border border-white/50">
-                 <div className="flex items-center gap-3 sm:gap-4">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#22a45a] rounded-xl sm:rounded-2xl flex items-center justify-center text-white font-bold text-lg sm:text-xl">8.5</div>
-                    <div>
-                       <p className="font-black text-black leading-none text-sm sm:text-base">Target Band</p>
-                       <p className="text-[10px] sm:text-xs font-bold text-gray-500 mt-1 uppercase">Top Result</p>
-                    </div>
-                 </div>
+            {/* Red Arc Segments Frame like Image 1 */}
+            <div className="relative w-[320px] h-[320px] sm:w-[500px] sm:h-[500px] flex items-center justify-center scale-110 sm:scale-100">
+              {/* Static Arc Segments */}
+              <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="#d90f40" strokeWidth="3" strokeDasharray="60 10 30 10 40 10" className="opacity-100" />
+                <circle cx="50" cy="50" r="40" fill="none" stroke="#d90f40" strokeWidth="1" strokeDasharray="10 5" className="opacity-40" />
+                {/* Thick Arc Segment */}
+                <path d="M50 5 A45 45 0 0 1 95 50" fill="none" stroke="#d90f40" strokeWidth="6" strokeLinecap="round" />
+                <path d="M5 50 A45 45 0 0 1 50 95" fill="none" stroke="#d90f40" strokeWidth="6" strokeLinecap="round" />
+              </svg>
+
+              <div className="relative w-[280px] h-[280px] sm:w-[420px] sm:h-[420px] rounded-full overflow-hidden border-[10px] border-white shadow-2xl bg-gray-50 z-10">
+                <img
+                  src={heroStudent}
+                  alt="Student"
+                  className="w-full h-full object-cover scale-110 object-top"
+                />
               </div>
             </div>
+          </motion.div>
+
+          {/* Mobile Button - Part 3 - Hidden on Desktop */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="flex lg:hidden order-3 mt-10 w-full px-4"
+          >
+             <Link to="/book-session" className="w-full px-10 py-5 rounded-xl bg-[#d90f40] text-white font-black text-xl shadow-xl hover:bg-[#b00c34] transition-all text-center animate-pulse-subtle">
+                Get Admission
+              </Link>
           </motion.div>
         </div>
+
+        <style dangerouslySetInnerHTML={{ __html: `
+          @keyframes pulse-subtle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+          }
+          .animate-pulse-subtle {
+            animation: pulse-subtle 3s ease-in-out infinite;
+          }
+        `}} />
       </section>
 
       {/* Modules Section - Redesigned to match the colorful tilted cards */}
@@ -196,7 +274,68 @@ export function IELTSPage() {
         </div>
       </section>
 
-      {/* Eligibility Section - Based on Image 3 */}
+      {/* 6 Reasons Section - Redesigned based on New Reference Image */}
+      <section className="py-24 sm:py-32 bg-gray-50 overflow-hidden">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-24">
+            <p className="text-[#d90f40] font-bold text-sm uppercase tracking-[0.2em] mb-4">Why Choose Us</p>
+            <h2 className="text-3xl sm:text-5xl font-black text-[#1a1a1a] mb-6 leading-tight">
+              6 Reasons to Enrol in IELTS Online Training at <br />
+              <span className="text-[#d90f40]">Apex Edge</span>
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-12 lg:gap-4 xl:gap-6 px-4">
+            {reasons.map((reason, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="relative group flex flex-col items-center"
+              >
+                {/* Circular Header with Icon - Matches reference style */}
+                <div
+                  className="w-28 h-28 rounded-full border-[6px] border-white shadow-2xl z-20 flex items-center justify-center text-white mb-[-56px] transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_20px_40px_rgba(0,0,0,0.2)]"
+                  style={{ backgroundColor: reason.color }}
+                >
+                  <div className="opacity-90 group-hover:opacity-100 transition-opacity">
+                    {reason.icon}
+                  </div>
+                </div>
+
+                {/* Content Card with Sharp Pointed Bottom */}
+                <div className="relative z-10 bg-white pt-20 pb-16 px-6 shadow-xl text-center h-full flex flex-col items-center clip-path-pointed-sharp min-h-[360px] border-t-4" style={{ borderTopColor: reason.color }}>
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-4 opacity-40 italic">Business Infographic</p>
+                  <h4 className="text-[13px] font-black text-[#1a1a1a] mb-5 leading-tight uppercase tracking-[0.05em] h-12 flex items-center justify-center border-b border-gray-100 pb-4 w-full">
+                    {reason.title}
+                  </h4>
+                  <p className="text-[10px] sm:text-[11px] text-gray-400 font-bold leading-relaxed px-2">
+                    {reason.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        <style dangerouslySetInnerHTML={{
+          __html: `
+          .clip-path-pointed-sharp {
+            clip-path: polygon(0% 0%, 100% 0%, 100% 92%, 50% 100%, 0% 92%);
+          }
+          @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+          }
+          .animate-spin-slow {
+            animation: spin-slow 20s linear infinite;
+          }
+        `}} />
+      </section>
+
+      {/* Eligibility Section - Restored */}
       <section className="py-20 sm:py-32 bg-[#fdf2e8]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
           <div className="text-center mb-16 sm:mb-20">
@@ -231,121 +370,89 @@ export function IELTSPage() {
         </div>
       </section>
 
-      {/* Results Section - Based on Image 4 */}
-      <section className="py-20 sm:py-32 bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 mb-12 sm:mb-20">
-          <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-8 text-center md:text-left">
-             <div className="max-w-2xl">
-                <h2 className="text-3xl sm:text-6xl font-black text-[#1a1a1a] mb-4 sm:mb-6 leading-tight">
-                  The Success <span className="text-[#d90f40]">Results</span>
+      {/* Quote/CTA Section - Restored */}
+
+
+      {/* 8+ Band CTA Banner - Redesigned based on Image 4 */}
+      {/* <section className="py-12 sm:py-20 px-4 sm:px-6 lg:px-12 bg-white relative z-20">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative overflow-hidden rounded-3xl bg-[#d90f40] px-8 py-0 sm:px-16"
+          > */}
+      {/* Background elements like Image 4 */}
+      {/* <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+              <div className="absolute top-0 left-10 w-20 h-full bg-white rotate-12" />
+              <div className="absolute top-0 left-40 w-10 h-full bg-white rotate-12" />
+            </div> */}
+
+      {/* <div className="relative z-10 grid lg:grid-cols-[auto,1fr] gap-12 items-center"> */}
+      {/* Guy on Left like Image 4 */}
+      {/* <div className="relative hidden lg:block w-[400px] h-[350px]">
+                <img
+                  src="/students/ielts.png"
+                  alt="Student"
+                  className="absolute bottom-0 left-0 w-full h-[450px] object-cover object-top scale-110"
+                />
+              </div> */}
+
+      {/* <div className="text-right py-12 sm:py-16">
+                <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight tracking-tight">
+                  Free online IELTS <br /> Real Mock tests <br />
+                  <span className="text-white/90 text-2xl sm:text-4xl">with Explanation</span>
                 </h2>
-                <p className="text-lg sm:text-xl text-gray-500 font-medium">
-                  Meet the candidates achieving 8+ Band with Apex Edge’s best IELTS online coaching!
-                </p>
-             </div>
-             <Link to="/book-session" className="flex items-center gap-3 text-[#d90f40] font-black text-lg sm:text-xl hover:gap-5 transition-all">
-                View All Results <ArrowRight className="w-6 h-6" />
-             </Link>
-          </div>
-        </div>
-
-        <div className="relative">
-          {/* Mobile Slider / Desktop Marquee */}
-          <div className="flex gap-6 sm:gap-8 px-4 sm:px-6 lg:px-12 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-10 sm:pb-0 sm:animate-marquee">
-            {[1,2,3,4,5,6].map((i) => (
-              <motion.div
-                key={i}
-                whileHover={{ scale: 1.05, rotate: -2 }}
-                className="flex-shrink-0 w-[85vw] sm:w-96 p-6 sm:p-8 bg-[#fdf2e8] rounded-[2.5rem] sm:rounded-[3rem] border border-gray-100 shadow-xl snap-center"
-              >
-                 <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-[2rem] shadow-sm mb-6 aspect-[1/1.4] relative overflow-hidden">
-                    <img src="/teachers/sneha.png" className="absolute inset-0 w-full h-full object-cover opacity-10" alt="background" />
-                    <div className="relative z-10 flex flex-col h-full">
-                       <div className="flex justify-between items-start mb-4 sm:mb-6">
-                          <div className="text-xl font-black text-[#d90f40]">AE.</div>
-                          <div className="bg-[#22a45a] text-white px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-widest">
-                             Passed
-                          </div>
-                       </div>
-                       <h5 className="text-lg sm:text-xl font-black text-black mb-1">Candidate Name</h5>
-                       <p className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 sm:mb-6">Candidate ID: #2024{i}</p>
-                       
-                       <div className="mt-auto pt-4 sm:pt-6 border-t border-gray-100 grid grid-cols-2 gap-4">
-                          <div>
-                             <p className="text-[0.5rem] sm:text-[0.6rem] font-bold text-gray-400 uppercase tracking-widest">Overall</p>
-                             <p className="text-3xl sm:text-4xl font-black text-[#d90f40]">8.5</p>
-                          </div>
-                          <div>
-                             <p className="text-[0.5rem] sm:text-[0.6rem] font-bold text-gray-400 uppercase tracking-widest">Listening</p>
-                             <p className="text-lg sm:text-xl font-black text-black">9.0</p>
-                          </div>
-                       </div>
-                    </div>
-                 </div>
-                 <div className="flex items-center gap-3 sm:gap-4">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-200 overflow-hidden">
-                       <img src={`/teachers/${i % 2 === 0 ? 'vikram' : 'priya'}.png`} className="w-full h-full object-cover" alt="Student" />
-                    </div>
-                    <div>
-                       <p className="font-bold text-black leading-none text-sm sm:text-base">IELTS Academic</p>
-                       <p className="text-[10px] sm:text-xs font-bold text-[#d90f40] mt-1 uppercase tracking-widest underline">Student Review</p>
-                    </div>
-                 </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Quote/CTA Section */}
-      <section className="py-20 sm:py-32 px-4 sm:px-6 lg:px-12 bg-[#fdf2e8]">
-         <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-               <motion.div
-                 initial={{ opacity: 0, x: -50 }}
-                 whileInView={{ opacity: 1, x: 0 }}
-                 viewport={{ once: true }}
-                 className="relative w-full max-w-xl mx-auto lg:max-w-none"
-               >
-                  <div className="relative rounded-[2.5rem] sm:rounded-[4rem] overflow-hidden shadow-2xl">
-                     <img src={groupStudent} className="w-full h-[400px] sm:h-[600px] object-cover" alt="Students" />
-                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                     <div className="absolute bottom-8 sm:bottom-12 left-8 sm:left-12 right-8 sm:right-12 text-white">
-                        <Quote className="w-8 h-8 sm:w-12 sm:h-12 mb-4 sm:mb-6 text-[#d90f40]" />
-                        <p className="text-xl sm:text-3xl font-black leading-tight italic">
-                          "Choosing Apex Edge was the best decision for my career. The faculty didn't just teach me IELTS; they taught me how to believe in myself."
-                        </p>
-                     </div>
-                  </div>
-               </motion.div>
-
-               <div className="text-center lg:text-left">
-                  <h2 className="text-3xl sm:text-6xl font-black text-[#1a1a1a] mb-6 sm:mb-10 leading-tight">
-                     Join the <br className="hidden sm:block" /> <span className="text-[#d90f40]">Elite Cohort</span> <br className="hidden sm:block" /> of Success.
-                  </h2>
-                  <p className="text-lg sm:text-xl text-gray-600 font-medium mb-8 sm:mb-12 leading-relaxed max-w-xl mx-auto lg:mx-0">
-                     Every student at Apex Edge is a story of ambition and achievement. 
-                     We provide the resources, you provide the dream. Together, we make it happen.
-                  </p>
-                  <div className="space-y-4 sm:space-y-6 mb-12 sm:mb-0">
-                     {[
-                       "100% Computer-based Simulation Environment",
-                       "Updated Materials for 2024 Syllabus",
-                       "Fast-track 4-Week Prep Bootcamps",
-                       "Direct Access to Certified IDP/BC Mentors"
-                     ].map((benefit, i) => (
-                       <div key={i} className="flex items-center gap-3 sm:gap-4 text-base sm:text-xl font-bold text-[#1a1a1a] text-left">
-                          <CheckCircle2 className="w-6 h-6 sm:w-8 sm:h-8 text-[#22a45a] shrink-0" />
-                          {benefit}
-                       </div>
-                     ))}
-                  </div>
-                  <Link to="/book-session" className="inline-flex items-center justify-center gap-3 px-8 sm:px-12 py-4 sm:py-6 bg-black text-white rounded-2xl sm:rounded-3xl font-black text-lg sm:text-2xl hover:bg-[#d90f40] transition-colors shadow-2xl w-full sm:w-auto">
-                     Claim Free Demo Session
+                <div className="flex justify-end gap-6 items-center">
+                  <Link to="/book-session" className="inline-flex items-center justify-center px-12 py-5 bg-white text-[#d90f40] rounded-xl font-black text-lg sm:text-xl hover:bg-gray-50 transition-all shadow-2xl active:scale-95">
+                    Take a test
                   </Link>
-               </div>
+                </div>
+              </div> */}
+      {/* </div>
+          </motion.div>
+        </div>
+      </section> */}
+
+      {/* Girl Banner - Height reduced and fixed based on Image 2 */}
+      <section className="py-6 sm:py-10 px-4 sm:px-6 lg:px-12 bg-white relative z-20">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative overflow-visible rounded-3xl bg-[#d90f40] px-8 py-6 sm:px-16 sm:py-8 min-h-[160px] flex items-center"
+          >
+            <div className="relative z-10 grid lg:grid-cols-[1fr,350px] gap-12 items-center w-full">
+              <div className="text-left">
+                <h2 className="text-2xl sm:text-4xl font-black text-white mb-4 leading-tight tracking-tight">
+                  Need an 8 or Above Band in IELTS? <br />
+                  <span className="text-white/90">Enroll for a Demo Class!</span>
+                </h2>
+                <Link to="/book-session" className="inline-flex items-center justify-center px-8 py-3 bg-white text-[#d90f40] rounded-xl font-black text-sm sm:text-base hover:bg-gray-50 transition-all shadow-xl active:scale-95">
+                  Book A Free Session Now
+                </Link>
+              </div>
+
+              <div className="relative hidden lg:block h-[100px]">
+                {/* Fixed Image Container based on Image 2 style */}
+                <div className="absolute -top-[160px] -right-[40px] w-[380px] h-[380px] z-30">
+                  <div className="relative w-full h-full">
+                    {/* Decorative squircle ring */}
+                    <div className="absolute inset-0 border-2 border-white/20 rounded-[4rem] rotate-12 scale-95 translate-y-4" />
+                    <div className="w-full h-full rounded-[4.5rem] overflow-hidden border-8 border-white shadow-2xl bg-white transform -rotate-3 hover:rotate-0 transition-all duration-700 ease-out">
+                      <img
+                        src="/students/group.png"
+                        alt="Student"
+                        className="w-full h-full object-cover scale-110 object-center"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-         </div>
+          </motion.div>
+        </div>
       </section>
 
       <ApexEdgeFooter />

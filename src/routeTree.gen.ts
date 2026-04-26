@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SpokenEnglishRouteImport } from './routes/spoken-english'
 import { Route as PteRouteImport } from './routes/pte'
 import { Route as IeltsRouteImport } from './routes/ielts'
+import { Route as EnrollRouteImport } from './routes/enroll'
 import { Route as ContactUsRouteImport } from './routes/contact-us'
 import { Route as CelpipRouteImport } from './routes/celpip'
 import { Route as BusinessCommunicationsRouteImport } from './routes/business-communications'
@@ -33,6 +34,11 @@ const PteRoute = PteRouteImport.update({
 const IeltsRoute = IeltsRouteImport.update({
   id: '/ielts',
   path: '/ielts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnrollRoute = EnrollRouteImport.update({
+  id: '/enroll',
+  path: '/enroll',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactUsRoute = ContactUsRouteImport.update({
@@ -78,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/business-communications': typeof BusinessCommunicationsRoute
   '/celpip': typeof CelpipRoute
   '/contact-us': typeof ContactUsRoute
+  '/enroll': typeof EnrollRoute
   '/ielts': typeof IeltsRoute
   '/pte': typeof PteRoute
   '/spoken-english': typeof SpokenEnglishRoute
@@ -90,6 +97,7 @@ export interface FileRoutesByTo {
   '/business-communications': typeof BusinessCommunicationsRoute
   '/celpip': typeof CelpipRoute
   '/contact-us': typeof ContactUsRoute
+  '/enroll': typeof EnrollRoute
   '/ielts': typeof IeltsRoute
   '/pte': typeof PteRoute
   '/spoken-english': typeof SpokenEnglishRoute
@@ -103,6 +111,7 @@ export interface FileRoutesById {
   '/business-communications': typeof BusinessCommunicationsRoute
   '/celpip': typeof CelpipRoute
   '/contact-us': typeof ContactUsRoute
+  '/enroll': typeof EnrollRoute
   '/ielts': typeof IeltsRoute
   '/pte': typeof PteRoute
   '/spoken-english': typeof SpokenEnglishRoute
@@ -117,6 +126,7 @@ export interface FileRouteTypes {
     | '/business-communications'
     | '/celpip'
     | '/contact-us'
+    | '/enroll'
     | '/ielts'
     | '/pte'
     | '/spoken-english'
@@ -129,6 +139,7 @@ export interface FileRouteTypes {
     | '/business-communications'
     | '/celpip'
     | '/contact-us'
+    | '/enroll'
     | '/ielts'
     | '/pte'
     | '/spoken-english'
@@ -141,6 +152,7 @@ export interface FileRouteTypes {
     | '/business-communications'
     | '/celpip'
     | '/contact-us'
+    | '/enroll'
     | '/ielts'
     | '/pte'
     | '/spoken-english'
@@ -154,6 +166,7 @@ export interface RootRouteChildren {
   BusinessCommunicationsRoute: typeof BusinessCommunicationsRoute
   CelpipRoute: typeof CelpipRoute
   ContactUsRoute: typeof ContactUsRoute
+  EnrollRoute: typeof EnrollRoute
   IeltsRoute: typeof IeltsRoute
   PteRoute: typeof PteRoute
   SpokenEnglishRoute: typeof SpokenEnglishRoute
@@ -181,6 +194,13 @@ declare module '@tanstack/react-router' {
       path: '/ielts'
       fullPath: '/ielts'
       preLoaderRoute: typeof IeltsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/enroll': {
+      id: '/enroll'
+      path: '/enroll'
+      fullPath: '/enroll'
+      preLoaderRoute: typeof EnrollRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact-us': {
@@ -242,6 +262,7 @@ const rootRouteChildren: RootRouteChildren = {
   BusinessCommunicationsRoute: BusinessCommunicationsRoute,
   CelpipRoute: CelpipRoute,
   ContactUsRoute: ContactUsRoute,
+  EnrollRoute: EnrollRoute,
   IeltsRoute: IeltsRoute,
   PteRoute: PteRoute,
   SpokenEnglishRoute: SpokenEnglishRoute,

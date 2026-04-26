@@ -18,9 +18,10 @@ export const Route = createFileRoute("/about")({
 
 function AboutPage() {
   return (
-    <div className="min-h-screen bg-[#fdf2e8] overflow-x-hidden">
+    <div className="min-h-screen flex flex-col bg-[#fdf2e8] overflow-x-hidden pt-36">
       <Navbar />
 
+      <div className="flex-grow">
       {/* Hero Section */}
       <section className="relative w-full min-h-[80vh] flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-12">
         {/* Animated Background Elements */}
@@ -263,6 +264,7 @@ function AboutPage() {
         </motion.div>
       </section>
 
+      </div>
       <ApexEdgeFooter />
     </div>
   );

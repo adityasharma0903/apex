@@ -18,9 +18,8 @@ export function Navbar() {
     <>
       <header className="fixed inset-x-0 top-0 z-50">
         <div
-          className={`hidden sm:block bg-[#d90f40] text-white transition-all duration-300 overflow-hidden ${
-            isScrolled ? "max-h-0 opacity-0" : "max-h-20 opacity-100"
-          }`}
+          className={`hidden sm:block bg-[#d90f40] text-white transition-all duration-300 overflow-hidden ${isScrolled ? "max-h-0 opacity-0" : "max-h-20 opacity-100"
+            }`}
         >
           <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 h-12 flex items-center justify-between text-xs sm:text-sm font-semibold">
             <div className="hidden md:flex items-center gap-2.5 whitespace-nowrap">
@@ -28,8 +27,8 @@ export function Navbar() {
               <span>Claim FREE Demo Class & Scholarships</span>
             </div>
             <div className="flex items-center gap-2.5 sm:gap-4 ml-auto whitespace-nowrap">
-              <a 
-                href="mailto:Email@gmail.com" 
+              <a
+                href="mailto:Email@gmail.com"
                 className="hover:opacity-85 transition"
               >
                 Email@gmail.com
@@ -44,11 +43,10 @@ export function Navbar() {
 
         <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-12 pt-0 sm:pt-1">
           <div
-            className={`mx-auto flex items-center justify-between transition-all duration-300 ${
-              isScrolled
-                ? "mt-1.5 rounded-xl bg-white/95 backdrop-blur-md border border-[#eed7df] shadow-[0_10px_30px_-24px_rgba(20,20,40,0.45)]"
-                : "-mt-1 rounded-b-[1.65rem] bg-white border border-[#f0f0f0] shadow-[0_18px_28px_-22px_rgba(0,0,0,0.35)]"
-            } px-4 sm:px-6 lg:px-8 py-3.5`}
+            className={`mx-auto flex items-center justify-between transition-all duration-300 ${isScrolled
+              ? "mt-1.5 rounded-xl bg-white/95 backdrop-blur-md border border-[#eed7df] shadow-[0_10px_30px_-24px_rgba(20,20,40,0.45)]"
+              : "-mt-1 rounded-b-[1.65rem] bg-white border border-[#f0f0f0] shadow-[0_18px_28px_-22px_rgba(0,0,0,0.35)]"
+              } px-4 sm:px-6 lg:px-8 py-3.5`}
           >
             <Link to="/" className="flex items-center gap-2.5 sm:gap-3 shrink-0">
               <img
@@ -61,11 +59,14 @@ export function Navbar() {
 
             <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-base xl:text-lg font-semibold text-[oklch(0.2_0.02_250)]">
               <Link to="/" className="hover:text-[#d90f40] transition">Home</Link>
-              <div className="relative">
+              <div 
+                className="relative group"
+                onMouseLeave={() => setIsCoursesDropdownOpen(false)}
+              >
                 <button
                   onClick={() => setIsCoursesDropdownOpen(!isCoursesDropdownOpen)}
-                  onBlur={() => setTimeout(() => setIsCoursesDropdownOpen(false), 150)}
-                  className="hover:text-[#d90f40] transition inline-flex items-center gap-2"
+                  onMouseEnter={() => setIsCoursesDropdownOpen(true)}
+                  className="hover:text-[#d90f40] transition inline-flex items-center gap-2 py-2"
                 >
                   Online Courses
                   <svg className={`w-4 h-4 transition-transform ${isCoursesDropdownOpen ? "rotate-180" : ""}`} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
@@ -73,37 +74,32 @@ export function Navbar() {
                   </svg>
                 </button>
                 {isCoursesDropdownOpen && (
-                  <div className="absolute top-full left-0 mt-3 w-72 bg-[#f5e8ec] rounded-2xl shadow-lg border border-[#e5d5e0] p-4 z-50 space-y-2">
-                    <Link to="/ielts" className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-white transition cursor-pointer">
-                      <div className="w-11 h-11 bg-[#d72646] rounded-lg flex items-center justify-center text-white font-bold text-xs flex-shrink-0">
-                        IELTS
-                      </div>
-                      <span className="text-base font-semibold text-[#333]">IELTS</span>
-                    </Link>
-                    <Link to="/pte" className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-white transition cursor-pointer">
-                      <div className="w-11 h-11 bg-[#2c5aa0] rounded-lg flex items-center justify-center text-white font-bold text-xs flex-shrink-0">
-                        PTE
-                      </div>
-                      <span className="text-base font-semibold text-[#333]">PTE</span>
-                    </Link>
-                    <Link to="/celpip" className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-white transition cursor-pointer">
-                      <div className="w-11 h-11 bg-[#f59e0b] rounded-lg flex items-center justify-center text-white font-bold text-xs flex-shrink-0">
-                        CELPIP
-                      </div>
-                      <span className="text-base font-semibold text-[#333]">CELPIP</span>
-                    </Link>
-                    <Link to="/business-communications" className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-white transition cursor-pointer">
-                      <div className="w-11 h-11 bg-[#10b981] rounded-lg flex items-center justify-center text-white font-bold text-xs flex-shrink-0 text-center">
-                        BUS.
-                      </div>
-                      <span className="text-base font-semibold text-[#333]">Business Communications</span>
-                    </Link>
-                    <Link to="/spoken-english" className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-white transition cursor-pointer">
-                      <div className="w-11 h-11 bg-[#f59e0b] rounded-lg flex items-center justify-center text-white font-bold text-xs flex-shrink-0">
-                        SE
-                      </div>
-                      <span className="text-base font-semibold text-[#333]">Spoken English</span>
-                    </Link>
+                  <div 
+                    className="absolute top-full left-0 mt-1 w-72 bg-[#f5e8ec] rounded-2xl shadow-xl border border-[#e5d5e0] p-4 z-50 space-y-2"
+                    onMouseEnter={() => setIsCoursesDropdownOpen(true)}
+                  >
+                    {[
+                      { to: "/ielts", label: "IELTS", color: "#d72646", short: "IELTS" },
+                      { to: "/pte", label: "PTE", color: "#2c5aa0", short: "PTE" },
+                      { to: "/celpip", label: "CELPIP", color: "#f59e0b", short: "CELPIP" },
+                      { to: "/business-communications", label: "Business Communications", color: "#10b981", short: "BUS." },
+                      { to: "/spoken-english", label: "Spoken English", color: "#f59e0b", short: "SE" },
+                    ].map((item) => (
+                      <Link 
+                        key={item.to}
+                        to={item.to} 
+                        onClick={() => setIsCoursesDropdownOpen(false)}
+                        className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-white transition cursor-pointer group/item"
+                      >
+                        <div 
+                          className="w-11 h-11 rounded-lg flex items-center justify-center text-white font-bold text-xs flex-shrink-0 transition-transform group-hover/item:scale-110"
+                          style={{ backgroundColor: item.color }}
+                        >
+                          {item.short}
+                        </div>
+                        <span className="text-base font-semibold text-[#333]">{item.label}</span>
+                      </Link>
+                    ))}
                   </div>
                 )}
               </div>
@@ -112,13 +108,16 @@ export function Navbar() {
               <Link to="/contact-us" className="hover:text-[#d90f40] transition">Contact Us</Link>
             </nav>
 
-            <button className="hidden sm:inline-flex items-center gap-2 rounded-xl bg-[#d90f40] text-white px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-semibold shadow-[0_10px_20px_-16px_rgba(217,15,64,0.9)] hover:opacity-90 transition whitespace-nowrap">
+            <Link 
+              to="/enroll"
+              className="hidden sm:inline-flex items-center gap-2 rounded-xl bg-[#d90f40] text-white px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-semibold shadow-[0_10px_20px_-16px_rgba(217,15,64,0.9)] hover:opacity-90 transition whitespace-nowrap"
+            >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <circle cx="12" cy="8" r="4" />
                 <path d="M4 20c0-3.5 3.6-6 8-6s8 2.5 8 6" />
               </svg>
               Enroll Now
-            </button>
+            </Link>
 
             <button
               type="button"
@@ -137,9 +136,8 @@ export function Navbar() {
       </header>
 
       <div
-        className={`fixed inset-0 z-[60] sm:hidden transition-opacity duration-300 ${
-          isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
+        className={`fixed inset-0 z-[60] sm:hidden transition-opacity duration-300 ${isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          }`}
         aria-hidden={!isMobileMenuOpen}
       >
         <button
@@ -150,9 +148,8 @@ export function Navbar() {
         />
 
         <aside
-          className={`absolute inset-y-0 left-0 w-[84%] max-w-[20rem] bg-white shadow-[0_20px_40px_-22px_rgba(0,0,0,0.35)] px-5 py-5 transition-transform duration-300 ${
-            isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
+          className={`absolute inset-y-0 left-0 w-[84%] max-w-[20rem] bg-white shadow-[0_20px_40px_-22px_rgba(0,0,0,0.35)] px-5 py-5 transition-transform duration-300 ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+            }`}
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
@@ -253,13 +250,12 @@ export function Navbar() {
           </nav>
 
           <div className="mt-8 border-t border-black/10 pt-7">
-            <button className="w-full rounded-xl bg-[#d90f40] py-3.5 text-white text-lg font-semibold">
+            <Link to="/enroll" className="block w-full rounded-xl bg-[#d90f40] py-3.5 text-center text-white text-lg font-semibold">
               Enroll Now
-            </button>
+            </Link>
           </div>
         </aside>
       </div>
-      <div className={`transition-all duration-300 ${isScrolled ? "h-20 sm:h-24" : "h-24 sm:h-32 lg:h-34"}`} />
     </>
   );
 }
