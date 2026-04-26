@@ -66,16 +66,20 @@ const courses = [
 export function EnrollNowPage() {
   const [selectedCourse, setSelectedCourse] = useState(courses[0].id);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const currentCourse = courses.find(c => c.id === selectedCourse);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isSubmitting) return;
+    
+    setIsSubmitting(true);
     const formData = new FormData(e.currentTarget);
     formData.append('form_type', 'enroll');
     
     // GOOGLE SHEETS URL (FOR ENROLLMENT ONLY)
-    const ENROLL_SHEET_URL = "https://script.google.com/macros/s/AKfycbxwzOv6oko-GSlYELBBJzO1jpeUWTPGn6OYlDnSGEZAVlvc6PQFxaZY_jwKyUzZ-mad/exec"; 
+    const ENROLL_SHEET_URL = "https://script.google.com/macros/s/AKfycbxZwLgu_Ec6jKlHdv4IC0urmPUzE8Xwmj4oAL4ght85laFFE0cEtjStjzFoEQhcsCj9/exec"; 
 
     try {
       // 1. Submit to FormSubmit (Email)
@@ -85,7 +89,7 @@ export function EnrollNowPage() {
       });
 
       // 2. Submit to Google Sheets (Using URLSearchParams for better GAS compatibility)
-      let googleSheetPromise = Promise.resolve();
+      let googleSheetPromise: Promise<any> = Promise.resolve();
       if (ENROLL_SHEET_URL) {
         const params = new URLSearchParams();
         formData.forEach((value, key) => params.append(key, value.toString()));
@@ -105,6 +109,8 @@ export function EnrollNowPage() {
     } catch (error) {
       console.error("Form submission error:", error);
       alert("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -380,12 +386,22 @@ export function EnrollNowPage() {
                       </div>
 
                       <div className="pt-4">
-                        <button 
+                        <button
                           type="submit"
-                          className="w-full bg-[#d90f40] text-white py-5 rounded-2xl font-black text-lg flex items-center justify-center gap-3 shadow-xl shadow-[#d90f40]/30 hover:scale-[1.02] transition-transform active:scale-[0.98]"
+                          className="w-full h-16 bg-[#1a1a1a] text-white rounded-2xl font-black uppercase tracking-[0.2em] text-sm hover:bg-[#d90f40] transition-all shadow-xl shadow-gray-200 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                          disabled={isSubmitting}
                         >
-                          Enroll Now
-                          <ArrowRight className="w-5 h-5" />
+                          {isSubmitting ? (
+                            <>
+                              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                              Processing...
+                            </>
+                          ) : (
+                            <>
+                              Enroll Now
+                              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                            </>
+                          )}
                         </button>
                         <p className="text-[10px] text-center text-gray-400 mt-4 uppercase tracking-[0.2em] font-bold">
                           Expert callback within 24 hours

@@ -21,6 +21,7 @@ export function ContactUsPage() {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [formError, setFormError] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const formReady = useMemo(
     () =>
@@ -36,18 +37,14 @@ export function ContactUsPage() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!formReady || isSubmitting) return;
 
-    if (!formReady) {
-      setFormError("Please complete all required fields and accept the terms.");
-      return;
-    }
-
-    setFormError("");
+    setIsSubmitting(true);
     const formData = new FormData(event.currentTarget);
     formData.append('form_type', 'contact');
     
     // GOOGLE SHEETS URL (FOR CONTACT/INQUIRIES ONLY)
-    const CONTACT_SHEET_URL = "https://script.google.com/macros/s/AKfycbxixQoS_fzeU5woL1S9_RlxGA-1hpI8hW7-guG1IyYxspKeMsQ_1n4G9jTiThk14v0I4Q/exec"; 
+    const CONTACT_SHEET_URL = "https://script.google.com/macros/s/AKfycbw44Z6wh2WRujRvh36WnoYhXUrDN1AvcZxByIGb4gSOL6IIGznhqw06Qj8wkdda7CacNQ/exec"; 
 
     try {
       // Submit to both services in parallel
@@ -57,7 +54,7 @@ export function ContactUsPage() {
       });
 
       // 2. Submit to Google Sheets (Using URLSearchParams for better GAS compatibility)
-      let googleSheetPromise = Promise.resolve();
+      let googleSheetPromise: Promise<any> = Promise.resolve();
       if (CONTACT_SHEET_URL) {
         const params = new URLSearchParams();
         formData.forEach((value, key) => params.append(key, value.toString()));
@@ -87,6 +84,8 @@ export function ContactUsPage() {
     } catch (error) {
       console.error("Form submission error:", error);
       alert("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -371,10 +370,17 @@ export function ContactUsPage() {
 
                       <button
                         type="submit"
-                        className="inline-flex h-12 min-w-39.5 items-center justify-center rounded-full bg-[#f1284b] px-8 text-base font-semibold text-white transition hover:bg-[#db2243] disabled:cursor-not-allowed disabled:opacity-65"
-                        disabled={!formReady}
+                        className="inline-flex h-12 min-w-39.5 items-center justify-center rounded-full bg-[#f1284b] px-8 text-base font-semibold text-white transition hover:bg-[#db2243] disabled:cursor-not-allowed disabled:opacity-65 gap-3"
+                        disabled={!formReady || isSubmitting}
                       >
-                        SEND
+                        {isSubmitting ? (
+                          <>
+                            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                            SENDING...
+                          </>
+                        ) : (
+                          "SEND"
+                        )}
                       </button>
                     </motion.form>
                   ) : (
