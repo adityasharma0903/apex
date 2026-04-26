@@ -69,9 +69,43 @@ export function EnrollNowPage() {
 
   const currentCourse = courses.find(c => c.id === selectedCourse);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    const formData = new FormData(e.currentTarget);
+    formData.append('form_type', 'enroll');
+    
+    // GOOGLE SHEETS URL (FOR ENROLLMENT ONLY)
+    const ENROLL_SHEET_URL = "https://script.google.com/macros/s/AKfycbxwzOv6oko-GSlYELBBJzO1jpeUWTPGn6OYlDnSGEZAVlvc6PQFxaZY_jwKyUzZ-mad/exec"; 
+
+    try {
+      // 1. Submit to FormSubmit (Email)
+      const formSubmitPromise = fetch("https://formsubmit.co/ajax/adityasharma08093@gmail.com", {
+        method: "POST",
+        body: formData
+      });
+
+      // 2. Submit to Google Sheets (Using URLSearchParams for better GAS compatibility)
+      let googleSheetPromise = Promise.resolve();
+      if (ENROLL_SHEET_URL) {
+        const params = new URLSearchParams();
+        formData.forEach((value, key) => params.append(key, value.toString()));
+
+        googleSheetPromise = fetch(ENROLL_SHEET_URL, {
+          method: "POST",
+          mode: "no-cors", // Essential for Google Apps Script
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: params.toString()
+        });
+      }
+
+      await Promise.all([formSubmitPromise, googleSheetPromise]);
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error("Form submission error:", error);
+      alert("Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -98,7 +132,7 @@ export function EnrollNowPage() {
               y: [0, 30, 0]
             }}
             transition={{ duration: 15, repeat: Infinity }}
-            className="absolute top-1/2 -right-20 w-[600px] h-[600px] bg-[#2d7f72]/5 rounded-full blur-[120px] pointer-events-none"
+            className="absolute top-1/2 -right-20 w-[600px] h-[600px] bg-[#2c5aa0]/5 rounded-full blur-[120px] pointer-events-none"
           />
 
           <div className="max-w-7xl mx-auto relative z-10">
@@ -187,7 +221,7 @@ export function EnrollNowPage() {
                           <div className="grid sm:grid-cols-3 gap-6">
                             {course.features.map((feature, i) => (
                               <div key={i} className="flex items-center gap-2 text-sm font-bold text-[#444]">
-                                <CheckCircle2 className="w-5 h-5 text-[#2d7f72]" />
+                                <CheckCircle2 className="w-5 h-5 text-[#2c5aa0]" />
                                 {feature}
                               </div>
                             ))}
@@ -220,10 +254,14 @@ export function EnrollNowPage() {
                       initial={{ opacity: 1 }}
                       exit={{ opacity: 0, y: -20 }}
                     >
+                      {/* Hidden field for selected course */}
+                      <input type="hidden" name="Selected_Course" value={currentCourse?.name || ''} />
+                      
                       <div className="space-y-4">
                         <label className="block">
                           <span className="text-xs font-black text-[#1a1a1a] uppercase tracking-widest mb-2 block pl-2">Full Name</span>
                           <input 
+                            name="Name"
                             type="text" 
                             required
                             placeholder="John Doe"
@@ -234,6 +272,7 @@ export function EnrollNowPage() {
                           <label className="block">
                             <span className="text-xs font-black text-[#1a1a1a] uppercase tracking-widest mb-2 block pl-2">City</span>
                             <input 
+                              name="City"
                               type="text" 
                               required
                               placeholder="Your City"
@@ -243,6 +282,7 @@ export function EnrollNowPage() {
                           <label className="block">
                             <span className="text-xs font-black text-[#1a1a1a] uppercase tracking-widest mb-2 block pl-2">Email Address</span>
                             <input 
+                              name="Email"
                               type="email" 
                               required
                               placeholder="john@example.com"
@@ -253,8 +293,21 @@ export function EnrollNowPage() {
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <label className="block">
+                            <span className="text-xs font-black text-[#1a1a1a] uppercase tracking-widest mb-2 block pl-2">WhatsApp Number</span>
+                            <input 
+                              name="WhatsApp"
+                              type="tel" 
+                              required
+                              placeholder="+91 98XXX XXXXX"
+                              className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-[#d90f40] focus:bg-white outline-none transition-all font-medium"
+                            />
+                          </label>
+                          <label className="block">
                             <span className="text-xs font-black text-[#1a1a1a] uppercase tracking-widest mb-2 block pl-2">Qualification</span>
-                            <select className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-[#d90f40] focus:bg-white outline-none transition-all font-medium appearance-none">
+                            <select 
+                              name="Qualification"
+                              className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-[#d90f40] focus:bg-white outline-none transition-all font-medium appearance-none"
+                            >
                               <option>High School (10th)</option>
                               <option>Senior Secondary (12th)</option>
                               <option>Undergraduate (UG)</option>
@@ -262,41 +315,52 @@ export function EnrollNowPage() {
                               <option>Working Professional</option>
                             </select>
                           </label>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <label className="block">
                             <span className="text-xs font-black text-[#1a1a1a] uppercase tracking-widest mb-2 block pl-2">Reason to Join</span>
-                            <select className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-[#d90f40] focus:bg-white outline-none transition-all font-medium appearance-none">
+                            <select 
+                              name="Reason"
+                              className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-[#d90f40] focus:bg-white outline-none transition-all font-medium appearance-none"
+                            >
                               <option>Study Abroad</option>
                               <option>Job / Work Permit</option>
                               <option>Improve Communication</option>
                               <option>Other</option>
                             </select>
                           </label>
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <label className="block">
                             <span className="text-xs font-black text-[#1a1a1a] uppercase tracking-widest mb-2 block pl-2">English Level</span>
-                            <select className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-[#d90f40] focus:bg-white outline-none transition-all font-medium appearance-none">
+                            <select 
+                              name="English_Level"
+                              className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-[#d90f40] focus:bg-white outline-none transition-all font-medium appearance-none"
+                            >
                               <option>Beginner</option>
                               <option>Intermediate</option>
                               <option>Advanced</option>
                             </select>
                           </label>
-                          <label className="block">
-                            <span className="text-xs font-black text-[#1a1a1a] uppercase tracking-widest mb-2 block pl-2">Preferred Batch</span>
-                            <select className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-[#d90f40] focus:bg-white outline-none transition-all font-medium appearance-none">
-                              <option>Morning (7 AM - 10 AM)</option>
-                              <option>Afternoon (1 PM - 4 PM)</option>
-                              <option>Evening (6 PM - 9 PM)</option>
-                              <option>Weekend Only</option>
-                            </select>
-                          </label>
                         </div>
+
+                        <label className="block">
+                          <span className="text-xs font-black text-[#1a1a1a] uppercase tracking-widest mb-2 block pl-2">Preferred Batch</span>
+                          <select 
+                            name="Batch"
+                            className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-[#d90f40] focus:bg-white outline-none transition-all font-medium appearance-none"
+                          >
+                            <option>Morning (7 AM - 10 AM)</option>
+                            <option>Afternoon (1 PM - 4 PM)</option>
+                            <option>Evening (6 PM - 9 PM)</option>
+                            <option>Weekend Only</option>
+                          </select>
+                        </label>
 
                         <label className="block">
                           <span className="text-xs font-black text-[#1a1a1a] uppercase tracking-widest mb-2 block pl-2">Any Suggestions / Message</span>
                           <textarea 
-                            placeholder="Tell us more about your requirements or any suggestions..."
+                            name="Suggestions"
+                            placeholder="Tell us more about your requirements..."
                             className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-[#d90f40] focus:bg-white outline-none transition-all font-medium min-h-[100px]"
                           />
                         </label>
@@ -305,6 +369,7 @@ export function EnrollNowPage() {
                           <input 
                             type="checkbox" 
                             id="contact-agree"
+                            name="Agreed_to_Contact"
                             required
                             className="mt-1 w-5 h-5 rounded border-2 border-gray-300 text-[#d90f40] focus:ring-[#d90f40]"
                           />

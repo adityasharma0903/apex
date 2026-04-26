@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import studentGirl from "@/assets/student-girl.png";
 import { ApexEdgeFooter } from "../ApexEdgeFooter";
 import { Navbar } from "../Navbar";
-import { Mail, Phone, MessageCircle, MapPin, Clock } from "lucide-react";
+import { Mail, Phone, MessageCircle, MapPin, Clock, CheckCircle2, Sparkles } from "lucide-react";
 
 const adminEmail = "apexedge@gmail.com";
 const phoneNumber = "+91 79869 01874";
@@ -20,6 +20,7 @@ export function ContactUsPage() {
   const [message, setMessage] = useState("");
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [formError, setFormError] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const formReady = useMemo(
     () =>
@@ -33,7 +34,7 @@ export function ContactUsPage() {
     [name, email, phone, location, subject, method, acceptedTerms]
   );
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!formReady) {
@@ -42,11 +43,51 @@ export function ContactUsPage() {
     }
 
     setFormError("");
-    const mailSubject = encodeURIComponent(`New Contact Inquiry: ${subject}`);
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nLocation: ${location}\nInquiry Subject: ${subject}\nPreferred Contact Method: ${method}\nMessage: ${message || "N/A"}`
-    );
-    window.location.href = `mailto:${adminEmail}?subject=${mailSubject}&body=${body}`;
+    const formData = new FormData(event.currentTarget);
+    formData.append('form_type', 'contact');
+    
+    // GOOGLE SHEETS URL (FOR CONTACT/INQUIRIES ONLY)
+    const CONTACT_SHEET_URL = "https://script.google.com/macros/s/AKfycbxixQoS_fzeU5woL1S9_RlxGA-1hpI8hW7-guG1IyYxspKeMsQ_1n4G9jTiThk14v0I4Q/exec"; 
+
+    try {
+      // Submit to both services in parallel
+      const formSubmitPromise = fetch("https://formsubmit.co/ajax/adityasharma08093@gmail.com", {
+        method: "POST",
+        body: formData
+      });
+
+      // 2. Submit to Google Sheets (Using URLSearchParams for better GAS compatibility)
+      let googleSheetPromise = Promise.resolve();
+      if (CONTACT_SHEET_URL) {
+        const params = new URLSearchParams();
+        formData.forEach((value, key) => params.append(key, value.toString()));
+        
+        googleSheetPromise = fetch(CONTACT_SHEET_URL, {
+          method: "POST",
+          mode: "no-cors", // Essential for Google Apps Script
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: params.toString()
+        });
+      }
+
+      await Promise.all([formSubmitPromise, googleSheetPromise]);
+
+      setIsSubmitted(true);
+      // Reset form
+      setName("");
+      setEmail("");
+      setPhone("");
+      setLocation("");
+      setSubject("");
+      setMethod("");
+      setMessage("");
+      setAcceptedTerms(false);
+    } catch (error) {
+      console.error("Form submission error:", error);
+      alert("Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -97,20 +138,7 @@ export function ContactUsPage() {
                       <p className="text-2xl sm:text-3xl font-black text-[#1a1a1a] tracking-tight">{phoneNumber}</p>
                     </div>
                   </div>
-
-                  {/* <button 
-                  onClick={() => {
-                    const formElement = document.getElementById('contact-form');
-                    formElement?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-white text-lg font-black hover:bg-white hover:text-[#d90f40] transition-all max-w-[280px]"
-                >
-                  Send a Message
-                  <MessageCircle className="w-5 h-5" />
-                </button> */}
                 </div>
-
-
               </motion.div>
 
               {/* Visual Element */}
@@ -199,49 +227,6 @@ export function ContactUsPage() {
           </div>
         </section>
 
-        {/* <section className="bg-white py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <p className="text-sm uppercase tracking-[0.24em] text-[#6b7280]">Multiple Ways to Reach Us</p>
-            <h2 className="mt-3 text-3xl font-extrabold text-[#111827] sm:text-4xl">Contact Options</h2>
-          </div>
-
-          <div className="mt-12 grid gap-6 xl:grid-cols-4 md:grid-cols-2">
-            <div className="rounded-[1.8rem] border border-[#e5e7eb] bg-[#f8fafc] p-6 text-center shadow-sm">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-[#0f766e] text-white">
-                <span className="text-xl">📍</span>
-              </div>
-              <h3 className="mt-6 text-xl font-semibold text-[#111827]">Visit Our Campus</h3>
-              <p className="mt-3 text-sm leading-7 text-[#475569]">#885, Blueberry Fields School, Derabassi, Punjab.</p>
-            </div>
-
-            <div className="rounded-[1.8rem] border border-[#e5e7eb] bg-[#f8fafc] p-6 text-center shadow-sm">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-[#facc15] text-white">
-                <span className="text-xl">📞</span>
-              </div>
-              <h3 className="mt-6 text-xl font-semibold text-[#111827]">Call Us</h3>
-              <p className="mt-3 text-sm leading-7 text-[#475569]">{phoneNumber}<br />+91 98776 53180</p>
-            </div>
-
-            <div className="rounded-[1.8rem] border border-[#e5e7eb] bg-[#f8fafc] p-6 text-center shadow-sm">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-[#0f766e] text-white">
-                <span className="text-xl">✉️</span>
-              </div>
-              <h3 className="mt-6 text-xl font-semibold text-[#111827]">Email Us</h3>
-              <p className="mt-3 text-sm leading-7 text-[#475569]">{adminEmail}</p>
-            </div>
-
-            <div className="rounded-[1.8rem] border border-[#e5e7eb] bg-[#f8fafc] p-6 text-center shadow-sm">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-[#facc15] text-white">
-                <span className="text-xl">⏰</span>
-              </div>
-              <h3 className="mt-6 text-xl font-semibold text-[#111827]">Office Hours</h3>
-              <p className="mt-3 text-sm leading-7 text-[#475569]">Mon - Sat, 9 AM - 6 PM</p>
-            </div>
-          </div>
-        </div>
-      </section> */}
-
         <section className="bg-[#f3dde2] py-16">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <div className="relative mx-auto max-w-262.5">
@@ -258,126 +243,170 @@ export function ContactUsPage() {
                 <h2 className="mt-2 text-[32px] font-bold tracking-tight text-[#20324a]">Send us your inquiry</h2>
                 <p className="mt-2 text-sm text-[#8f97a6]">Fill this form and we will get back to you soon.</p>
 
-                <form onSubmit={handleSubmit} className="mt-7 space-y-5">
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <label className="space-y-2 text-sm font-semibold text-[#111827]">
-                      Full Name
-                      <input
-                        type="text"
-                        value={name}
-                        onChange={(event) => setName(event.target.value)}
-                        placeholder="Enter your full name"
-                        className="h-12 w-full rounded-md border border-[#eceef2] bg-[#f8f9fc] px-4 text-sm text-[#1f2230] outline-none transition focus:border-[#f1284b]"
-                        required
-                      />
-                    </label>
+                <AnimatePresence mode="wait">
+                  {!isSubmitted ? (
+                    <motion.form 
+                      key="contact-form"
+                      onSubmit={handleSubmit} 
+                      className="mt-7 space-y-5"
+                      initial={{ opacity: 1 }}
+                      exit={{ opacity: 0, y: -20 }}
+                    >
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        <label className="space-y-2 text-sm font-semibold text-[#111827]">
+                          Full Name
+                          <input
+                            name="Name"
+                            type="text"
+                            value={name}
+                            onChange={(event) => setName(event.target.value)}
+                            placeholder="Enter your full name"
+                            className="h-12 w-full rounded-md border border-[#eceef2] bg-[#f8f9fc] px-4 text-sm text-[#1f2230] outline-none transition focus:border-[#f1284b]"
+                            required
+                          />
+                        </label>
 
-                    <label className="space-y-2 text-sm font-semibold text-[#111827]">
-                      Email Address
-                      <input
-                        type="email"
-                        value={email}
-                        onChange={(event) => setEmail(event.target.value)}
-                        placeholder="your.email@company.com"
-                        className="h-12 w-full rounded-md border border-[#eceef2] bg-[#f8f9fc] px-4 text-sm text-[#1f2230] outline-none transition focus:border-[#f1284b]"
-                        required
-                      />
-                    </label>
-                  </div>
+                        <label className="space-y-2 text-sm font-semibold text-[#111827]">
+                          Email Address
+                          <input
+                            name="Email"
+                            type="email"
+                            value={email}
+                            onChange={(event) => setEmail(event.target.value)}
+                            placeholder="your.email@company.com"
+                            className="h-12 w-full rounded-md border border-[#eceef2] bg-[#f8f9fc] px-4 text-sm text-[#1f2230] outline-none transition focus:border-[#f1284b]"
+                            required
+                          />
+                        </label>
+                      </div>
 
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <label className="space-y-2 text-sm font-semibold text-[#111827]">
-                      Phone Number
-                      <input
-                        type="tel"
-                        value={phone}
-                        onChange={(event) => setPhone(event.target.value)}
-                        placeholder="+91 98776 53180"
-                        className="h-12 w-full rounded-md border border-[#eceef2] bg-[#f8f9fc] px-4 text-sm text-[#1f2230] outline-none transition focus:border-[#f1284b]"
-                        required
-                      />
-                    </label>
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        <label className="space-y-2 text-sm font-semibold text-[#111827]">
+                          Phone Number
+                          <input
+                            name="Phone"
+                            type="tel"
+                            value={phone}
+                            onChange={(event) => setPhone(event.target.value)}
+                            placeholder="+91 98776 53180"
+                            className="h-12 w-full rounded-md border border-[#eceef2] bg-[#f8f9fc] px-4 text-sm text-[#1f2230] outline-none transition focus:border-[#f1284b]"
+                            required
+                          />
+                        </label>
 
-                    <label className="space-y-2 text-sm font-semibold text-[#111827]">
-                      Location
-                      <input
-                        type="text"
-                        value={location}
-                        onChange={(event) => setLocation(event.target.value)}
-                        placeholder="City, state or country"
-                        className="h-12 w-full rounded-md border border-[#eceef2] bg-[#f8f9fc] px-4 text-sm text-[#1f2230] outline-none transition focus:border-[#f1284b]"
-                        required
-                      />
-                    </label>
-                  </div>
+                        <label className="space-y-2 text-sm font-semibold text-[#111827]">
+                          Location
+                          <input
+                            name="Location"
+                            type="text"
+                            value={location}
+                            onChange={(event) => setLocation(event.target.value)}
+                            placeholder="City, state or country"
+                            className="h-12 w-full rounded-md border border-[#eceef2] bg-[#f8f9fc] px-4 text-sm text-[#1f2230] outline-none transition focus:border-[#f1284b]"
+                            required
+                          />
+                        </label>
+                      </div>
 
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <label className="space-y-2 text-sm font-semibold text-[#111827]">
-                      Inquiry Subject
-                      <select
-                        value={subject}
-                        onChange={(event) => setSubject(event.target.value)}
-                        className="h-12 w-full rounded-md border border-[#eceef2] bg-[#f8f9fc] px-4 text-sm text-[#1f2230] outline-none transition focus:border-[#f1284b]"
-                        required
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        <label className="space-y-2 text-sm font-semibold text-[#111827]">
+                          Inquiry Subject
+                          <select
+                            name="Subject"
+                            value={subject}
+                            onChange={(event) => setSubject(event.target.value)}
+                            className="h-12 w-full rounded-md border border-[#eceef2] bg-[#f8f9fc] px-4 text-sm text-[#1f2230] outline-none transition focus:border-[#f1284b]"
+                            required
+                          >
+                            <option value="" disabled>Select subject</option>
+                            <option value="IELTS">IELTS</option>
+                            <option value="PTE">PTE</option>
+                            <option value="CELPIP">CELPIP</option>
+                            <option value="Business Communications">Business Communications</option>
+                            <option value="Spoken English">Spoken English</option>
+                          </select>
+                        </label>
+
+                        <label className="space-y-2 text-sm font-semibold text-[#111827]">
+                          Preferred Contact Method
+                          <select
+                            name="Contact_Method"
+                            value={method}
+                            onChange={(event) => setMethod(event.target.value)}
+                            className="h-12 w-full rounded-md border border-[#eceef2] bg-[#f8f9fc] px-4 text-sm text-[#1f2230] outline-none transition focus:border-[#f1284b]"
+                            required
+                          >
+                            <option value="" disabled>How should we contact you?</option>
+                            <option value="Phone">Phone</option>
+                            <option value="WhatsApp">WhatsApp</option>
+                            <option value="Email">Email</option>
+                          </select>
+                        </label>
+                      </div>
+
+                      <label className="space-y-2 text-sm font-semibold text-[#111827]">
+                        Message
+                        <textarea
+                          name="Message"
+                          value={message}
+                          onChange={(event) => setMessage(event.target.value)}
+                          placeholder="Tell us about your requirements..."
+                          className="min-h-30.5 w-full rounded-md border border-[#eceef2] bg-[#f8f9fc] px-4 py-3 text-sm text-[#1f2230] outline-none transition focus:border-[#f1284b]"
+                        />
+                      </label>
+
+                      <label className="flex items-center gap-3 text-sm text-[#4b5563]">
+                        <input
+                          name="Terms_Accepted"
+                          type="checkbox"
+                          checked={acceptedTerms}
+                          onChange={(event) => setAcceptedTerms(event.target.checked)}
+                          className="h-4 w-4 rounded border-[#d1d5db] text-[#f1284b] focus:ring-[#f1284b]"
+                          required
+                        />
+                        I accept the terms and conditions
+                      </label>
+
+                      {formError && <p className="text-sm text-[#b91c1c]">{formError}</p>}
+
+                      <button
+                        type="submit"
+                        className="inline-flex h-12 min-w-39.5 items-center justify-center rounded-full bg-[#f1284b] px-8 text-base font-semibold text-white transition hover:bg-[#db2243] disabled:cursor-not-allowed disabled:opacity-65"
+                        disabled={!formReady}
                       >
-                        <option value="" disabled>Select subject</option>
-                        <option value="IELTS">IELTS</option>
-                        <option value="PTE">PTE</option>
-                        <option value="CELPIP">CELPIP</option>
-                        <option value="Business Communications">Business Communications</option>
-                        <option value="Spoken English">Spoken English</option>
-                      </select>
-                    </label>
-
-                    <label className="space-y-2 text-sm font-semibold text-[#111827]">
-                      Preferred Contact Method
-                      <select
-                        value={method}
-                        onChange={(event) => setMethod(event.target.value)}
-                        className="h-12 w-full rounded-md border border-[#eceef2] bg-[#f8f9fc] px-4 text-sm text-[#1f2230] outline-none transition focus:border-[#f1284b]"
-                        required
+                        SEND
+                      </button>
+                    </motion.form>
+                  ) : (
+                    <motion.div
+                      key="success"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="py-20 text-center"
+                    >
+                      <div className="w-24 h-24 bg-[#d90f40]/10 rounded-full flex items-center justify-center mx-auto mb-8 relative">
+                        <CheckCircle2 className="w-12 h-12 text-[#d90f40] relative z-10" />
+                        <motion.div 
+                          animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                          className="absolute inset-0 bg-[#d90f40] rounded-full"
+                        />
+                      </div>
+                      <h3 className="text-3xl font-black text-[#1a1a1a] mb-4 uppercase tracking-tighter">Inquiry Sent!</h3>
+                      <p className="text-gray-500 font-medium mb-10 max-w-xs mx-auto">
+                        Thank you for reaching out. Our team will contact you within 24 hours.
+                      </p>
+                      <button 
+                        onClick={() => setIsSubmitted(false)}
+                        className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#1a1a1a] text-white font-black text-sm uppercase tracking-widest hover:bg-[#d90f40] transition-colors"
                       >
-                        <option value="" disabled>How should we contact you?</option>
-                        <option value="Phone">Phone</option>
-                        <option value="WhatsApp">WhatsApp</option>
-                        <option value="Email">Email</option>
-                      </select>
-                    </label>
-                  </div>
-
-                  <label className="space-y-2 text-sm font-semibold text-[#111827]">
-                    Message
-                    <textarea
-                      value={message}
-                      onChange={(event) => setMessage(event.target.value)}
-                      placeholder="Tell us about your requirements..."
-                      className="min-h-30.5 w-full rounded-md border border-[#eceef2] bg-[#f8f9fc] px-4 py-3 text-sm text-[#1f2230] outline-none transition focus:border-[#f1284b]"
-                    />
-                  </label>
-
-                  <label className="flex items-center gap-3 text-sm text-[#4b5563]">
-                    <input
-                      type="checkbox"
-                      checked={acceptedTerms}
-                      onChange={(event) => setAcceptedTerms(event.target.checked)}
-                      className="h-4 w-4 rounded border-[#d1d5db] text-[#f1284b] focus:ring-[#f1284b]"
-                      required
-                    />
-                    I accept the terms and conditions
-                  </label>
-
-                  {formError && <p className="text-sm text-[#b91c1c]">{formError}</p>}
-
-                  <button
-                    type="submit"
-                    className="inline-flex h-12 min-w-39.5 items-center justify-center rounded-full bg-[#f1284b] px-8 text-base font-semibold text-white transition hover:bg-[#db2243] disabled:cursor-not-allowed disabled:opacity-65"
-                    disabled={!formReady}
-                  >
-                    SEND
-                  </button>
-                </form>
+                        <Sparkles className="w-4 h-4" />
+                        Send Another Inquiry
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
-
             </div>
           </div>
         </section>
